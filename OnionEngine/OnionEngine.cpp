@@ -67,13 +67,9 @@ void init() {
         0.0, 1.0, 0.0
     );
 
-
     glClearColor(0.2f, 0.2f, 0.3f, 1.0f);
 
-    //gameObject = new GameObject();
-    //gameObject -> setPosition(1, 0, 0);
     initGameObjects();
-
 }
 
 void initGameObjects() {
@@ -104,14 +100,13 @@ void display() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //gameObject->draw();
+
 
     glRotatef(60, 1, 1, 0);
     textureManager->useTexture("ice");
     texturedCube->draw();
 
     glutSwapBuffers();
-    //glFlush(); 
 }
 
 void timer(int) {
