@@ -1,5 +1,4 @@
 // SquareAnim.cpp : This file contains the 'main' function. Program execution begins and ends there.
-
 #include <GL/freeglut.h>
 #include <iostream>
 #include <cmath>
@@ -15,6 +14,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
@@ -24,6 +24,7 @@ void display();
 void timer(int);
 void initGameObjects();
 void cleanUp();
+void keyCallback(unsigned char key, int x, int y); // Added key callback
 
 TextureManager* textureManager;
 
@@ -39,6 +40,7 @@ glm::vec3 cameraPositions[3] = {
 
 int currentCamera = 0; // Index of the currently active camera
 
+
 int main(int argc, char* argv[]) {
 
     glutInit(&argc, argv);
@@ -53,7 +55,7 @@ int main(int argc, char* argv[]) {
 
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
-
+  
     init();
     glutMainLoop();
 
@@ -82,13 +84,6 @@ void init() {
 
 void initGameObjects() {
     textureManager = new TextureManager();
-
-    gameObject = new GameObject();
-    gameObject->setPosition(1, 0, 0);
-
-    sphere = new SphereGameObject();
-    sphere->setPosition(-1, 0, 0);
-
     texturedCube = new TexturedCube();
     texturedCube->generateDisplayList();
 }
@@ -100,15 +95,11 @@ void cleanUp() {
     delete texturedCube;
 }
 
-
-
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-
 
     glRotatef(60, 1, 1, 0);
     textureManager->useTexture("ice");
@@ -121,6 +112,7 @@ void timer(int) {
     glutPostRedisplay();
     glutTimerFunc(1000 / 60, timer, 0);
 }
+
 
 
 
