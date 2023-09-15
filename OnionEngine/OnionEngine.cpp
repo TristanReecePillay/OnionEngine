@@ -31,6 +31,14 @@ GameObject* gameObject;
 SphereGameObject* sphere;
 TexturedCube* texturedCube; 
 
+glm::vec3 cameraPositions[3] = {
+    glm::vec3(0.0f, 0.0f, 5.0f),  // Camera 0 position
+    glm::vec3(5.0f, 0.0f, 0.0f),  // Camera 1 position
+    glm::vec3(-5.0f, 0.0f, 0.0f) // Camera 2 position
+};
+
+int currentCamera = 0; // Index of the currently active camera
+
 int main(int argc, char* argv[]) {
 
     glutInit(&argc, argv);
