@@ -107,7 +107,7 @@ void display() {
     //gameObject->draw();
 
     glRotatef(60, 1, 1, 0);
-    textureManager->useTexture("ice");
+    textureManager->useTexture("spruce");
     texturedCube->draw();
 
     glutSwapBuffers();
