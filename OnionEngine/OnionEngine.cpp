@@ -34,7 +34,7 @@ TexturedCube* texturedCube;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(0.0f, 0.0f, 5.0f),  // Camera 0 position
-    glm::vec3(5.0f, 0.0f, 0.0f),  // Camera 1 position
+    glm::vec3(5.0f, -5.0f, 0.0f),  // Camera 1 position
     glm::vec3(-5.0f, 0.0f, 0.0f) // Camera 2 position
 };
 
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
-  
+    glutKeyboardFunc(keyCallback); // Register the key callback
     init();
     glutMainLoop();
 
@@ -101,7 +101,18 @@ void display() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glRotatef(60, 1, 1, 0);
+
+    // Set the camera view based on the currently active camera
+    glm::vec3 cameraPosition = cameraPositions[currentCamera];
+    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f); // Target point
+
+    gluLookAt(
+        cameraPosition.x, cameraPosition.y, cameraPosition.z,
+        cameraTarget.x, cameraTarget.y, cameraTarget.z,
+        0.0, 1.0, 0.0
+    );
+
+    glRotatef(45, 1, 1, 0);
     textureManager->useTexture("ice");
     texturedCube->draw();
 
@@ -113,6 +124,23 @@ void timer(int) {
     glutTimerFunc(1000 / 60, timer, 0);
 }
 
+void keyCallback(unsigned char key, int x, int y) {
+    switch (key) {
+    case '1':
+        currentCamera = 0; // Switch to camera 0
+        break;
+    case '2':
+        currentCamera = 1; // Switch to camera 1
+        break;
+    case '3':
+        currentCamera = 2; // Switch to camera 2
+        break;
+    case 27: // ESC key
+        exit(0); // Exit the program
+        break;
+    }
+    glutPostRedisplay();
+}
 
 
 
