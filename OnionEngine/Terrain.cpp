@@ -1,4 +1,3 @@
-// Terrain.cpp
 #include "Terrain.h"
 #include <iostream>
 #include "stb_image.h"
