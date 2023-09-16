@@ -22,6 +22,7 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
+Terrain terrain("../Textures/HeightMap2.png");
 
 void init();
 void display();
@@ -120,7 +121,7 @@ void display() {
     );
 
     glRotatef(45, 1, 1, 0);
-    textureManager->useTexture("gold");
+    textureManager->useTexture("map");
     texturedCube->draw();
 
     glutSwapBuffers();

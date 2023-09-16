@@ -1,11 +1,14 @@
 // Terrain.cpp
 #include "Terrain.h"
+#include <iostream>
+#include "stb_image.h"
+
 
 Terrain::Terrain(const char* heightmapPath) {
     loadHeightmap(heightmapPath);
     generateTerrain();
     setupMesh();
-    loadTexture("terrain_texture.jpg"); // Change to your texture path
+    loadTexture("../Textures/HeightMap2.png"); // Change to your texture path
 }
 
 Terrain::~Terrain() {
@@ -31,13 +34,85 @@ void Terrain::render(const glm::mat4& viewMatrix, const glm::mat4& projectionMat
 
 void Terrain::loadHeightmap(const char* heightmapPath) {
     // Load heightmap image using stb_image.h
+     unsigned char* image = stbi_load(heightmapPath, &width, &height, NULL, 1);
+
+     if (!image) {
+        std::cerr << "Failed to load heightmap image." << std::endl;
+        return;
+     }
+
+     // Clear the current height data vector
+     vertices.clear();
+
     // Store height data in a vector
-    // Set width and height variables
+     for (int y = 0; y < height; ++y) {
+         for (int x = 0; x < width; ++x) {
+             // Assuming each pixel represents the height (grayscale)
+             float heightValue = static_cast<float>(image[y * width + x]) / 255.0f;
+             vertices.push_back(heightValue); // Store the height value in the vector
+         }
+     }
+     // Free the image data since we have stored it in vertices
+     stbi_image_free(image);
 }
 
 void Terrain::generateTerrain() {
-    // Generate terrain vertices and indices based on the height data
+    // Clear existing vertices and indices
+    vertices.clear();
+    indices.clear();
+
+    // Calculate the step size between terrain points
+    float stepX = 1.0f; // Adjust as needed
+    float stepY = 1.0f; // Adjust as needed
+
+    // Calculate the number of vertices in the x and y directions
+    int numVerticesX = 50; // Assuming 1 vertex per pixel
+    int numVerticesY = 50; // Assuming 1 vertex per pixel
+
+    // Create vertices
+    for (int y = 0; y < numVerticesY; ++y) {
+        for (int x = 0; x < numVerticesX; ++x) {
+            // Calculate the vertex position based on image dimensions and step size
+            float posX = static_cast<float>(x) * stepX;
+            float posY = static_cast<float>(y) * stepY;
+
+            // Get the height value from the height data
+            float heightValue = vertices[y * numVerticesX + x]; // Adjust for your height data format
+
+            // Create the vertex (assuming a simple flat terrain with no variation in the Z-axis)
+            vertices.push_back(posX);
+            vertices.push_back(posY);
+            vertices.push_back(heightValue);
+
+            // Texture coordinates (you can calculate these as needed)
+            float texCoordX = static_cast<float>(x) / static_cast<float>(numVerticesX - 1);
+            float texCoordY = static_cast<float>(y) / static_cast<float>(numVerticesY - 1);
+            vertices.push_back(texCoordX);
+            vertices.push_back(texCoordY);
+        }
+    }
+
+    // Create indices for rendering as triangles
+    for (int y = 0; y < numVerticesY - 1; ++y) {
+        for (int x = 0; x < numVerticesX - 1; ++x) {
+            // Calculate indices for the current quad
+            int topLeft = y * numVerticesX + x;
+            int topRight = topLeft + 1;
+            int bottomLeft = (y + 1) * numVerticesX + x;
+            int bottomRight = bottomLeft + 1;
+
+            // Define two triangles for the quad
+            indices.push_back(topLeft);
+            indices.push_back(bottomLeft);
+            indices.push_back(topRight);
+
+            indices.push_back(topRight);
+            indices.push_back(bottomLeft);
+            indices.push_back(bottomRight);
+        }
+    }
 }
+
 
 void Terrain::setupMesh() {
     glGenVertexArrays(1, &VAO);
