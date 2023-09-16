@@ -1,4 +1,5 @@
 // SquareAnim.cpp : This file contains the 'main' function. Program execution begins and ends there.
+#include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <iostream>
 #include <cmath>
@@ -6,9 +7,9 @@
 #include "SphereGameObject.h"
 #include "TextureManager.h"
 #include "TexturedCube.h"
-
 #include <glm/glm.hpp>
 #define GLEW_STATIC
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
