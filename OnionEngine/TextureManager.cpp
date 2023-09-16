@@ -10,7 +10,6 @@ TextureManager::TextureManager() {
 	textures.insert({ "gold", new Texture("../Textures/gold_block.png") });
 	textures.insert({ "spruce", new Texture("../Textures/spruce_planks.png") });
 	textures.insert({ "ice", new Texture("../Textures/frosted_ice.png") });
-	textures.insert({ "China", new Texture("../Textures/00000-3111328019.png") });
 }
 
 TextureManager::~TextureManager() {

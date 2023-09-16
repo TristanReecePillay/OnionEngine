@@ -1,5 +1,6 @@
 // SquareAnim.cpp : This file contains the 'main' function. Program execution begins and ends there.
 #include <GL/glew.h>
+
 #include <GL/freeglut.h>
 #include <iostream>
 #include <cmath>
@@ -116,7 +117,7 @@ void display() {
     );
 
     glRotatef(45, 1, 1, 0);
-    textureManager->useTexture("ice");
+    textureManager->useTexture("gold");
     texturedCube->draw();
 
     glutSwapBuffers();
