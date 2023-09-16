@@ -66,8 +66,8 @@ void Terrain::generateTerrain() {
     float stepY = 1.0f; // Adjust as needed
 
     // Calculate the number of vertices in the x and y directions
-    int numVerticesX = 50; // Assuming 1 vertex per pixel
-    int numVerticesY = 50; // Assuming 1 vertex per pixel
+    int numVerticesX = width; // Assuming 1 vertex per pixel
+    int numVerticesY = height; // Assuming 1 vertex per pixel
 
     // Create vertices
     for (int y = 0; y < numVerticesY; ++y) {

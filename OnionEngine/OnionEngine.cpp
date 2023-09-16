@@ -22,7 +22,7 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-Terrain terrain("../Textures/HeightMap2.png");
+//Terrain terrain("../Textures/HeightMap2.png");
 
 void init();
 void display();
@@ -30,6 +30,7 @@ void timer(int);
 void initGameObjects();
 void cleanUp();
 void keyCallback(unsigned char key, int x, int y); // Added key callback to switch camera positions
+void specialKeyCallback(int key, int x, int y);
 
 TextureManager* textureManager;
 
@@ -43,6 +44,7 @@ glm::vec3 cameraPositions[3] = {
 };
 
 int currentCamera = 0; // Index of the currently active camera
+
 
 
 int main(int argc, char* argv[]) {
@@ -60,6 +62,8 @@ int main(int argc, char* argv[]) {
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
     glutKeyboardFunc(keyCallback); // Register the key callback
+    glutSpecialFunc(specialKeyCallback);
+    
     init();
 
     glEnable(GL_DEPTH_TEST);
@@ -150,6 +154,18 @@ void keyCallback(unsigned char key, int x, int y) {
     glutPostRedisplay();
 }
 
+void specialKeyCallback(int key, int x, int y) {
+    // Handle arrow key presses to navigate between cameras
+    switch (key) {
+    case GLUT_KEY_LEFT:
+        currentCamera = (currentCamera + 2) % 3; // Switch to the previous camera
+        break;
+    case GLUT_KEY_RIGHT:
+        currentCamera = (currentCamera + 1) % 3; // Switch to the next camera
+        break;
+    }
+    glutPostRedisplay();
+}
 
 
 
