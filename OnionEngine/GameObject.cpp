@@ -35,7 +35,7 @@ void GameObject::draw() {
 }
 
 void GameObject::drawGeometry() {
-	glColor3f(1, 1, 0);
+	glColor3f(1, 1, 1);
 	glutSolidCube(1.0);
 }
 

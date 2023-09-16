@@ -76,13 +76,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\tinyobjloader;$(SolutionDir)Libraries\stb;$(SolutionDir)Libraries\glm-0.9.9.7\glm;$(SolutionDir)Libraries\freeglut\include;$(SolutionDir)Libraries\glew-2.1.0-win32\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\tinyobjloader;$(SolutionDir)Libraries\stb;$(SolutionDir)Libraries\glm-0.9.9.7\glm;$(SolutionDir)Libraries\freeglut\include;$(SolutionDir)Libraries\glew-2.1.0-win32\glew-2.1.0\include;$(SolutionDir)Libraries\glfw-3.3.2.bin.WIN32\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\freeglut\lib;$(SolutionDir)Libraries\glew-2.1.0-win32\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;opengl32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\freeglut\lib;$(SolutionDir)Libraries\glew-2.1.0-win32\glew-2.1.0\lib\Release\Win32;$(SolutionDir)Libraries\glfw-3.3.2.bin.WIN32\glfw-3.3.2.bin.WIN32\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Libraries\freeglut\bin\freeglut.dll" "$(OutDir)"</Command>
@@ -138,6 +138,7 @@
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SphereGameObject.cpp" />
     <ClCompile Include="OnionEngine.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SphereGameObject.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturedCube.h" />
     <ClInclude Include="TextureManager.h" />

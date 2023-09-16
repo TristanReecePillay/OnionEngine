@@ -1,13 +1,13 @@
 // SquareAnim.cpp : This file contains the 'main' function. Program execution begins and ends there.
 #include <GL/glew.h>
-
+#include <GLFW/glfw3.h>
 #include <GL/freeglut.h>
 #include <iostream>
 #include <cmath>
 #include "GameObject.h"
-#include "SphereGameObject.h"
 #include "TextureManager.h"
 #include "TexturedCube.h"
+#include "Terrain.h"
 #include <glm/glm.hpp>
 #define GLEW_STATIC
 
@@ -28,12 +28,11 @@ void display();
 void timer(int);
 void initGameObjects();
 void cleanUp();
-void keyCallback(unsigned char key, int x, int y); // Added key callback
+void keyCallback(unsigned char key, int x, int y); // Added key callback to switch camera positions
 
 TextureManager* textureManager;
 
 GameObject* gameObject;
-SphereGameObject* sphere;
 TexturedCube* texturedCube; 
 
 glm::vec3 cameraPositions[3] = {
@@ -55,12 +54,17 @@ int main(int argc, char* argv[]) {
 
     glutInitWindowPosition(windowX, windowY);
     glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("Textured Cube");
+    glutCreateWindow("Terrain Renderer");
 
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
     glutKeyboardFunc(keyCallback); // Register the key callback
     init();
+
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+
+
     glutMainLoop();
 
     cleanUp();
@@ -81,7 +85,7 @@ void init() {
         0.0, 1.0, 0.0
     );
 
-    glClearColor(0.2f, 0.2f, 0.3f, 1.0f);
+    glClearColor(0.6f, 0.8f, 0.9f, 1.0f);
 
     initGameObjects();
 }
@@ -95,7 +99,6 @@ void initGameObjects() {
 void cleanUp() {
     delete textureManager;
     delete gameObject;
-    delete sphere;
     delete texturedCube;
 }
 
