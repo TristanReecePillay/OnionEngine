@@ -1,8 +1,10 @@
 // SquareAnim.cpp : This file contains the 'main' function. Program execution begins and ends there.
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <GL/freeglut.h>
-#include <iostream>
 #include <cmath>
 #include "GameObject.h"
 #include "TextureManager.h"
@@ -45,7 +47,36 @@ glm::vec3 cameraPositions[3] = {
 
 int currentCamera = 0; // Index of the currently active camera
 
+// Function to load shader source code from a file
+std::string loadShaderSource(const char* filename) {
+    std::ifstream file(filename);
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
 
+// Function to compile a shader
+GLuint compileShader(GLenum shaderType, const char* source) {
+    GLuint shader = glCreateShader(shaderType);
+    glShaderSource(shader, 1, &source, NULL);
+    glCompileShader(shader);
+
+    // Check compilation status and handle errors
+    GLint compileStatus;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compileStatus);
+    if (compileStatus == GL_FALSE) {
+        GLint infoLogLength;
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+        char* infoLog = new char[infoLogLength];
+        glGetShaderInfoLog(shader, infoLogLength, NULL, infoLog);
+        std::cerr << "Shader compilation failed:\n" << infoLog << std::endl;
+        delete[] infoLog;
+        glDeleteShader(shader);
+        return 0;
+    }
+
+    return shader;
+}
 
 int main(int argc, char* argv[]) {
 
@@ -58,6 +89,48 @@ int main(int argc, char* argv[]) {
     glutInitWindowPosition(windowX, windowY);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Terrain Renderer");
+
+    GLenum glewInitResult = glewInit();
+    if (glewInitResult != GLEW_OK) {
+        std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
+        return 1;
+    }
+
+    // Load and compile shaders
+    std::string vertexShaderSource = loadShaderSource("vertex_shader.vert.glsl");
+    std::string fragmentShaderSource = loadShaderSource("fragment_shader.glsl");
+
+    GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+    GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+
+    // Check if shader compilation failed before proceeding further
+    if (vertexShader == 0 || fragmentShader == 0) {
+        cleanUp();
+        return 1;
+    }
+
+    // Create and link shader program
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    // Check linking status and handle errors
+    GLint linkStatus;
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkStatus);
+    if (linkStatus == GL_FALSE) {
+        GLint infoLogLength;
+        glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
+        char* infoLog = new char[infoLogLength];
+        glGetProgramInfoLog(shaderProgram, infoLogLength, NULL, infoLog);
+        std::cerr << "Shader program linking failed:\n" << infoLog << std::endl;
+        delete[] infoLog;
+        cleanUp();
+        return 1;
+    }
+
+    // Use the shader program for rendering
+    glUseProgram(shaderProgram);
 
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
