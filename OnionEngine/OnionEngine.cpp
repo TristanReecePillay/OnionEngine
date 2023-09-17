@@ -33,6 +33,7 @@ void initGameObjects();
 void cleanUp();
 void keyCallback(unsigned char key, int x, int y); // Added key callback to switch camera positions
 void specialKeyCallback(int key, int x, int y);
+void generateChessboard();
 
 TextureManager* textureManager;
 GameObject* gameObject;
@@ -129,6 +130,30 @@ void cleanUp() {
     delete texturedCube;
 }
 
+void generateChessboard() {
+    // Define the size of the chessboard (8x8 squares)
+    int chessboardSize = 8;
+    GLfloat squareSize = 1.0f;
+    GLfloat borderWidth = 0.5f;
+    GLfloat squareHeight = 0.5f; // Chessboard height
+
+    for (int row = 0; row < chessboardSize; row++) {
+        for (int col = 0; col < chessboardSize; col++) {
+            GLfloat xPos = static_cast<GLfloat>(col) * (squareSize + borderWidth) - chessboardSize * (squareSize + borderWidth) / 2.0f;
+            GLfloat yPos = static_cast<GLfloat>(row) * (squareSize + borderWidth) - chessboardSize * (squareSize + borderWidth) / 2.0f;
+
+            // Apply random offsets to raise individual squares
+            GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX - 0.5f) * squareHeight;
+            GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX - 0.5f) * squareHeight;
+            GLfloat zOffset = (static_cast<GLfloat>(rand()) / RAND_MAX - 0.5f) * squareHeight;
+
+            // Create vertices and colors for each square
+            // You will need to define vertices and colors for a square here
+        }
+    }
+}
+
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -149,6 +174,9 @@ void display() {
     glRotatef(45, 1, 1, 0);
     textureManager->useTexture("map");
     texturedCube->draw();
+
+    // Renders the chessboard here
+    generateChessboard(); // Calling the function that renders the chessboard
 
     // Render the terrain
     //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));
@@ -191,6 +219,7 @@ void specialKeyCallback(int key, int x, int y) {
     }
     glutPostRedisplay();
 }
+
 
 
 
