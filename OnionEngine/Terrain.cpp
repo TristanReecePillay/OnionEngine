@@ -1,6 +1,9 @@
 #include "Terrain.h"
 #include <iostream>
 #include "stb_image.h"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+//#include <Shader.h>
 
 
 Terrain::Terrain(const char* heightmapPath) {

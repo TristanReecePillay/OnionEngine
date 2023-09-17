@@ -136,6 +136,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SphereGameObject.cpp" />
     <ClCompile Include="OnionEngine.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SphereGameObject.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
