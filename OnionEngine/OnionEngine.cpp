@@ -76,7 +76,7 @@ void generateChessboard() {
     // Define chessboard dimensions
     const int chessboardSize = 8; // 8x8 grid
     const GLfloat cellSize = 1.0f; // Each cell is 1x1 units
-    const GLfloat borderWidth = 0.5f; // Border width
+    const GLfloat borderWidth = 0.0f; // NOPE this is the space between cells
 
     // Chessboard square colors 
     const glm::vec3 blackSquareColor(0.0f, 0.0f, 0.0f);
