@@ -271,6 +271,50 @@ void generateChessboard() {
     }
 }*/
 
+void drawBorder() {
+    // Set the color for the border
+    glColor3f(0.6f, 0.8f, 0.2f); // Color of border
+    //0.5f, 0.2f, 0.0f //brown
+    //0.8f, 0.6f, 0.0f //Mustard
+    //0.6f, 0.8f, 0.2f// Best Color : Green
+
+    // Calculate the positions and dimensions for the border rectangles
+    GLfloat borderThickness = 1.0f; // Changes border thickness 
+    GLfloat chessboardSize = 8.0f; // Changes the chessboard size
+    GLfloat xOffset = -borderThickness;
+    GLfloat yOffset = -borderThickness;
+    GLfloat width = (chessboardSize + 2 * borderThickness);
+    GLfloat height = (chessboardSize + 2 * borderThickness);
+
+    // Draw the border using OpenGL rectangles
+    glBegin(GL_QUADS);
+
+    // Top border
+    glVertex3f(xOffset, yOffset, 0.0f);
+    glVertex3f(xOffset + width, yOffset, 0.0f);
+    glVertex3f(xOffset + width, yOffset + borderThickness, 0.0f);
+    glVertex3f(xOffset, yOffset + borderThickness, 0.0f);
+
+    // Bottom border
+    glVertex3f(xOffset, yOffset + height - borderThickness, 0.0f);
+    glVertex3f(xOffset + width, yOffset + height - borderThickness, 0.0f);
+    glVertex3f(xOffset + width, yOffset + height, 0.0f);
+    glVertex3f(xOffset, yOffset + height, 0.0f);
+
+    // Left border
+    glVertex3f(xOffset, yOffset + borderThickness, 0.0f);
+    glVertex3f(xOffset + borderThickness, yOffset + borderThickness, 0.0f);
+    glVertex3f(xOffset + borderThickness, yOffset + height - borderThickness, 0.0f);
+    glVertex3f(xOffset, yOffset + height - borderThickness, 0.0f);
+
+    // Right border
+    glVertex3f(xOffset + width - borderThickness, yOffset + borderThickness, 0.0f);
+    glVertex3f(xOffset + width, yOffset + borderThickness, 0.0f);
+    glVertex3f(xOffset + width, yOffset + height - borderThickness, 0.0f);
+    glVertex3f(xOffset + width - borderThickness, yOffset + height - borderThickness, 0.0f);
+
+    glEnd();
+}
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -293,6 +337,9 @@ void display() {
     textureManager->useTexture("map");
     texturedCube->draw();
 
+
+    // Draw the border
+    drawBorder();
     // Renders the chessboard here
     generateChessboard(); // Calling the function that renders the chessboard
 
