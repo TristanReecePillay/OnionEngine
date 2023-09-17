@@ -3,10 +3,14 @@
 #include "stb_image.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-//#include <Shader.h>
+#include "Shader.h"
 
 
 Terrain::Terrain(const char* heightmapPath) {
+    // Initialize member variables and load heightmap
+    width = 50; 
+    height = 50;
+    textureID = 1;
     loadHeightmap(heightmapPath);
     generateTerrain();
     setupMesh();
@@ -22,10 +26,19 @@ Terrain::~Terrain() {
 
 void Terrain::render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     // Use appropriate shader program
+    Shader shader("vertex_shader.vert.glsl", "fragment_shader.glsl"); 
+    shader.use(); 
+
+    // Set shader uniforms for view and projection matrices
+    shader.setMat4("view", viewMatrix); 
+    shader.setMat4("projection", projectionMatrix); 
+
 
     // Bind the terrain texture
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
+    glActiveTexture(GL_TEXTURE0); // Activate texture unit 0 
+    glBindTexture(GL_TEXTURE_2D, textureID);  
+    shader.setInt("terrainTexture", 0); // Set the shader uniform for the texture 
+     
     // Set shader uniforms for view and projection matrices
 
     // Bind VAO and draw

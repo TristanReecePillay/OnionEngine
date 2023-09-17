@@ -10,7 +10,9 @@
 #include "TextureManager.h"
 #include "TexturedCube.h"
 #include "Terrain.h"
+#include "Shader.h"
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC
 
 #ifndef M_PI
@@ -23,8 +25,6 @@
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
-
-//Terrain terrain("../Textures/HeightMap2.png");
 
 void init();
 void display();
@@ -45,8 +45,9 @@ glm::vec3 cameraPositions[3] = {
 };
 
 int currentCamera = 0; // Index of the currently active camera
-
-
+// Create the Shader object
+//Shader shader("vertex_shader.vert.glsl", "fragment_shader.glsl"); 
+//Terrain terrain("../Textures/HeightMap2.png"); 
 
 int main(int argc, char* argv[]) {
 
@@ -60,6 +61,20 @@ int main(int argc, char* argv[]) {
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Terrain Renderer");
 
+   
+
+    //// Define and initialize model, view, and projection matrices
+    //glm::mat4 modelMatrix = glm::mat4(1.0f); // Initialize as an identity matrix  
+    //glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Example view matrix  
+    //glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 1.0f, 1000.0f); // Example projection matrix  
+
+    //// Set shader uniforms for model, view, and projection matrices
+    //shader.use(); 
+    //shader.setMat4("model", modelMatrix);  
+    //shader.setMat4("view", viewMatrix); 
+    //shader.setMat4("projection", projectionMatrix); 
+    //shader.unuse();
+
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
     glutKeyboardFunc(keyCallback); // Register the key callback
@@ -72,7 +87,7 @@ int main(int argc, char* argv[]) {
 
 
     glutMainLoop();
-
+    
     cleanUp();
 
     return 0;
@@ -100,6 +115,12 @@ void initGameObjects() {
     textureManager = new TextureManager();
     texturedCube = new TexturedCube();
     texturedCube->generateDisplayList();
+
+    //delete textureManager;
+    //delete texturedCube;
+
+    // Create the terrain object
+    //terrain.setupMesh();  
 }
 
 void cleanUp() {
@@ -128,6 +149,9 @@ void display() {
     glRotatef(45, 1, 1, 0);
     textureManager->useTexture("map");
     texturedCube->draw();
+
+    // Render the terrain
+    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));
 
     glutSwapBuffers();
 }

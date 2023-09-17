@@ -23,6 +23,7 @@ private:
     std::vector<float> vertices;
     std::vector<unsigned int> indices;
 
+    // Helper functions
     void loadHeightmap(const char* heightmapPath);
     void generateTerrain();
     void setupMesh();
