@@ -101,11 +101,12 @@ void generateChessboard() {
             glm::vec3 squareColor = ((row + col) % 2 == 0) ? blackSquareColor : whiteSquareColor;
 
             // Applying the offsets to each square
-            GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
-            GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+           // GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+          //  GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
 
             // Apply the height offset
-            zPos += xOffset + yOffset;
+          //  zPos += xOffset + yOffset;
+          
             // Begin immediate mode rendering
             glBegin(GL_QUADS);
 
@@ -240,7 +241,7 @@ void display() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-
+   
     // Set the camera view based on the currently active camera
     glm::vec3 cameraPosition = cameraPositions[currentCamera];
     glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f); // Target point
