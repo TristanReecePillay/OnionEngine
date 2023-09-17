@@ -25,9 +25,9 @@
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
-const int chessboardSize = 8; // Adjust the size according to your desired chessboard size
-const GLfloat minHeightOffset = -0.1f; // Adjust the minimum height offset as needed
-const GLfloat maxHeightOffset = 0.1f;  // Adjust the maximum height offset as needed
+const int chessboardSize = 8; // the standard size 
+const GLfloat minHeightOffset = -0.1f; // the minimum height offset as needed
+const GLfloat maxHeightOffset = 0.1f;  // the maximum height offset as needed
 const GLfloat cellDepth = 0.5f; // Adjust as needed for the depth of the cells
 
 void init();
@@ -76,7 +76,7 @@ void generateChessboard() {
     // Define chessboard dimensions
     const int chessboardSize = 8; // 8x8 grid
     const GLfloat cellSize = 1.0f; // Each cell is 1x1 units
-    const GLfloat borderWidth = 0.0f; // NOPE this is the space between cells
+    const GLfloat borderWidth = 0.0f; // NOPE this is the space between cells which we need at zero
 
     // Chessboard square colors 
     const glm::vec3 blackSquareColor(0.0f, 0.0f, 0.0f);
@@ -279,7 +279,7 @@ void drawBorder() {
     //0.6f, 0.8f, 0.2f// Best Color : Green
 
     // Calculate the positions and dimensions for the border rectangles
-    GLfloat borderThickness = 1.0f; // Changes border thickness 
+    GLfloat borderThickness = 0.5f; // Changes border thickness //1 looks better but becayse of the brief
     GLfloat chessboardSize = 8.0f; // Changes the chessboard size
     GLfloat xOffset = -borderThickness;
     GLfloat yOffset = -borderThickness;
