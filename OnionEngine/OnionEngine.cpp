@@ -25,6 +25,10 @@
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
+const int chessboardSize = 8; // Adjust the size according to your desired chessboard size
+const GLfloat minHeightOffset = -0.1f; // Adjust the minimum height offset as needed
+const GLfloat maxHeightOffset = 0.1f;  // Adjust the maximum height offset as needed
+
 
 void init();
 void display();
@@ -49,6 +53,74 @@ int currentCamera = 0; // Index of the currently active camera
 // Create the Shader object
 //Shader shader("vertex_shader.vert.glsl", "fragment_shader.glsl"); 
 //Terrain terrain("../Textures/HeightMap2.png"); 
+
+// Defining a 2D vector to store the height offsets for each square SO that it doesnt render every frame 
+//and look jittery 
+std::vector<std::vector<GLfloat>> squareHeights(chessboardSize, std::vector<GLfloat>(chessboardSize, 0.0f));
+
+void initializeChessboard() {
+    // Calculate and store random height offsets for each square
+    for (int row = 0; row < chessboardSize; row++) {
+        for (int col = 0; col < chessboardSize; col++) {
+            GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+            GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+
+            squareHeights[row][col] = xOffset + yOffset;
+        }
+    }
+}
+
+
+void generateChessboard() {
+    //Updated 
+    // Define chessboard dimensions
+    const int chessboardSize = 8; // 8x8 grid
+    const GLfloat cellSize = 1.0f; // Each cell is 1x1 units
+    const GLfloat borderWidth = 0.5f; // Border width
+
+    // Chessboard square colors 
+    const glm::vec3 blackSquareColor(0.0f, 0.0f, 0.0f);
+    const glm::vec3 whiteSquareColor(1.0f, 1.0f, 1.0f);
+    const glm::vec3 borderColor(0.2f, 0.2f, 0.2f); // Gray border color
+
+    // Calculate square height randomization range
+    const GLfloat minHeightOffset = -0.05f; // Minimum height offset
+    const GLfloat maxHeightOffset = 0.05f;  // Maximum height offset
+
+    for (int row = 0; row < chessboardSize; row++) {
+        for (int col = 0; col < chessboardSize; col++) {
+            // Calculate position for each square
+           // GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth); //- 4.0f;
+           // GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth); //- 4.0f;
+           // GLfloat zPos = 0.0f; // Chessboard is at a height of 0.5 units
+            GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth);
+            GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth);
+            GLfloat zPos = squareHeights[row][col];
+
+            // Determine the square color based on row and column
+            glm::vec3 squareColor = ((row + col) % 2 == 0) ? blackSquareColor : whiteSquareColor;
+
+            // Applying the offsets to each square
+            GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+            GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+
+            // Apply the height offset
+            zPos += xOffset + yOffset;
+            // Begin immediate mode rendering
+            glBegin(GL_QUADS);
+
+            // Define vertices and colors for the square
+            glColor3f(squareColor.r, squareColor.g, squareColor.b);
+            glVertex3f(xPos, yPos, zPos);
+            glVertex3f(xPos + cellSize, yPos, zPos);
+            glVertex3f(xPos + cellSize, yPos + cellSize, zPos);
+            glVertex3f(xPos, yPos + cellSize, zPos);
+
+            // End immediate mode rendering for the square
+            glEnd();
+        }
+    }
+}
 
 int main(int argc, char* argv[]) {
 
@@ -75,6 +147,8 @@ int main(int argc, char* argv[]) {
     //shader.setMat4("view", viewMatrix); 
     //shader.setMat4("projection", projectionMatrix); 
     //shader.unuse();
+    // Initialize the chessboard with random height offsets
+    initializeChessboard();
 
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
@@ -130,44 +204,8 @@ void cleanUp() {
     delete texturedCube;
 }
 
-void generateChessboard() {
-    //Updated 
-    // Define chessboard dimensions
-    const int chessboardSize = 8; // 8x8 grid
-    const GLfloat cellSize = 1.0f; // Each cell is 1x1 units
-    const GLfloat borderWidth = 0.5f; // Border width
 
-    // Chessboard square colors 
-    const glm::vec3 blackSquareColor(0.0f, 0.0f, 0.0f);
-    const glm::vec3 whiteSquareColor(1.0f, 1.0f, 1.0f);
-    const glm::vec3 borderColor(0.2f, 0.2f, 0.2f); // Gray border color
 
-    // Calculate square height randomization range
-    const GLfloat minHeightOffset = -0.1f; // Minimum height offset
-    const GLfloat maxHeightOffset = 0.1f;  // Maximum height offset
-
-    for (int row = 0; row < chessboardSize; row++) {
-        for (int col = 0; col < chessboardSize; col++) {
-            // Calculate position for each square
-            GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth) - 4.0f;
-            GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth) - 4.0f;
-            GLfloat zPos = 0.0f; // Chessboard is at a height of 0.5 units
-
-            // Determine the square color based on row and column
-            glm::vec3 squareColor = ((row + col) % 2 == 0) ? blackSquareColor : whiteSquareColor;
-
-            // Applying the offsets to each square
-            GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
-            GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
-
-            // Apply the height offset
-            zPos += xOffset + yOffset;
-
-            // Now, you can use xPos, yPos, zPos, squareColor to create the geometry and colors for each square
-            // You may use OpenGL commands or update vertex buffers here to render the square
-        }
-    }
-}
 
 
 /*
