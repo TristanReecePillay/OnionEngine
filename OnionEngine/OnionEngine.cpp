@@ -28,7 +28,7 @@ const int HEIGHT = 600;
 const int chessboardSize = 8; // Adjust the size according to your desired chessboard size
 const GLfloat minHeightOffset = -0.1f; // Adjust the minimum height offset as needed
 const GLfloat maxHeightOffset = 0.1f;  // Adjust the maximum height offset as needed
-
+const GLfloat cellDepth = 0.5f; // Adjust as needed for the depth of the cells
 
 void init();
 void display();
@@ -110,12 +110,49 @@ void generateChessboard() {
             // Begin immediate mode rendering
             glBegin(GL_QUADS);
 
-            // Define vertices and colors for the square
+            // Define vertices and colors for the top face
             glColor3f(squareColor.r, squareColor.g, squareColor.b);
             glVertex3f(xPos, yPos, zPos);
             glVertex3f(xPos + cellSize, yPos, zPos);
             glVertex3f(xPos + cellSize, yPos + cellSize, zPos);
             glVertex3f(xPos, yPos + cellSize, zPos);
+
+            // Define vertices and colors for the bottom face (same as top face but lowered)
+            glVertex3f(xPos, yPos, zPos - cellDepth);
+            glVertex3f(xPos + cellSize, yPos, zPos - cellDepth);
+            glVertex3f(xPos + cellSize, yPos + cellSize, zPos - cellDepth);
+            glVertex3f(xPos, yPos + cellSize, zPos - cellDepth);
+
+            // Define vertices and colors for the front face (sides of the cell)
+            glVertex3f(xPos, yPos, zPos);
+            glVertex3f(xPos + cellSize, yPos, zPos);
+            glVertex3f(xPos + cellSize, yPos, zPos - cellDepth);
+            glVertex3f(xPos, yPos, zPos - cellDepth);
+
+            // Define vertices and colors for the right face (sides of the cell)
+            glVertex3f(xPos + cellSize, yPos, zPos);
+            glVertex3f(xPos + cellSize, yPos + cellSize, zPos);
+            glVertex3f(xPos + cellSize, yPos + cellSize, zPos - cellDepth);
+            glVertex3f(xPos + cellSize, yPos, zPos - cellDepth);
+
+            // Define vertices and colors for the back face (sides of the cell)
+            glVertex3f(xPos, yPos + cellSize, zPos);
+            glVertex3f(xPos + cellSize, yPos + cellSize, zPos);
+            glVertex3f(xPos + cellSize, yPos + cellSize, zPos - cellDepth);
+            glVertex3f(xPos, yPos + cellSize, zPos - cellDepth);
+
+            // Define vertices and colors for the left face (sides of the cell)
+            glVertex3f(xPos, yPos, zPos);
+            glVertex3f(xPos, yPos + cellSize, zPos);
+            glVertex3f(xPos, yPos + cellSize, zPos - cellDepth);
+            glVertex3f(xPos, yPos, zPos - cellDepth);
+
+          /*  // Define vertices and colors for the square
+            glColor3f(squareColor.r, squareColor.g, squareColor.b);
+            glVertex3f(xPos, yPos, zPos);
+            glVertex3f(xPos + cellSize, yPos, zPos);
+            glVertex3f(xPos + cellSize, yPos + cellSize, zPos);
+            glVertex3f(xPos, yPos + cellSize, zPos);*/
 
             // End immediate mode rendering for the square
             glEnd();
