@@ -131,7 +131,50 @@ void cleanUp() {
 }
 
 void generateChessboard() {
-    // Define the size of the chessboard (8x8 squares)
+    //Updated 
+    // Define chessboard dimensions
+    const int chessboardSize = 8; // 8x8 grid
+    const GLfloat cellSize = 1.0f; // Each cell is 1x1 units
+    const GLfloat borderWidth = 0.5f; // Border width
+
+    // Chessboard square colors 
+    const glm::vec3 blackSquareColor(0.0f, 0.0f, 0.0f);
+    const glm::vec3 whiteSquareColor(1.0f, 1.0f, 1.0f);
+    const glm::vec3 borderColor(0.2f, 0.2f, 0.2f); // Gray border color
+
+    // Calculate square height randomization range
+    const GLfloat minHeightOffset = -0.1f; // Minimum height offset
+    const GLfloat maxHeightOffset = 0.1f;  // Maximum height offset
+
+    for (int row = 0; row < chessboardSize; row++) {
+        for (int col = 0; col < chessboardSize; col++) {
+            // Calculate position for each square
+            GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth) - 4.0f;
+            GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth) - 4.0f;
+            GLfloat zPos = 0.0f; // Chessboard is at a height of 0.5 units
+
+            // Determine the square color based on row and column
+            glm::vec3 squareColor = ((row + col) % 2 == 0) ? blackSquareColor : whiteSquareColor;
+
+            // Applying the offsets to each square
+            GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+            GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+
+            // Apply the height offset
+            zPos += xOffset + yOffset;
+
+            // Now, you can use xPos, yPos, zPos, squareColor to create the geometry and colors for each square
+            // You may use OpenGL commands or update vertex buffers here to render the square
+        }
+    }
+}
+
+
+/*
+void generateChessboard() {
+
+
+    // size of the chessboard (8x8 squares)
     int chessboardSize = 8;
     GLfloat squareSize = 1.0f;
     GLfloat borderWidth = 0.5f;
@@ -142,16 +185,15 @@ void generateChessboard() {
             GLfloat xPos = static_cast<GLfloat>(col) * (squareSize + borderWidth) - chessboardSize * (squareSize + borderWidth) / 2.0f;
             GLfloat yPos = static_cast<GLfloat>(row) * (squareSize + borderWidth) - chessboardSize * (squareSize + borderWidth) / 2.0f;
 
-            // Apply random offsets to raise individual squares
+            // Offsets
             GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX - 0.5f) * squareHeight;
             GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX - 0.5f) * squareHeight;
             GLfloat zOffset = (static_cast<GLfloat>(rand()) / RAND_MAX - 0.5f) * squareHeight;
 
-            // Create vertices and colors for each square
-            // You will need to define vertices and colors for a square here
+            //...
         }
     }
-}
+}*/
 
 
 void display() {
