@@ -49,7 +49,7 @@ void Terrain::render(const glm::mat4& viewMatrix, const glm::mat4& projectionMat
 
 void Terrain::loadHeightmap(const char* heightmapPath) {
     // Load heightmap image using stb_image.h
-     unsigned char* image = stbi_load(heightmapPath, &width, &height, NULL, 1);
+     unsigned char* image = stbi_load("../Textures/HeightMap3.png", &width, &height, NULL, 1);
 
      if (!image) {
         std::cerr << "Failed to load heightmap image." << std::endl;
@@ -92,7 +92,7 @@ void Terrain::generateTerrain() {
             float posY = static_cast<float>(y) * stepY;
 
             // Get the height value from the height data
-            float heightValue = vertices[y * numVerticesX + x]; // Adjust for your height data format
+            float heightValue = 5.0f; //vertices[y * numVerticesX + x]; // Adjust for your height data format
 
             // Create the vertex (assuming a simple flat terrain with no variation in the Z-axis)
             vertices.push_back(posX);
@@ -130,6 +130,8 @@ void Terrain::generateTerrain() {
 
 
 void Terrain::setupMesh() {
+    GLuint VAO, VBO, EBO;
+
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -142,7 +144,9 @@ void Terrain::setupMesh() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-    // Specify vertex attributes (position, normals, texture coordinates)
+    // Specify vertex attributes (position)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0); 
 
     glBindVertexArray(0);
 }

@@ -59,26 +59,6 @@ GLuint Shader::compileShader(GLenum shaderType, const char* shaderPath)
     // Ensure ifstream objects can throw exceptions
     shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-    try {
-        // Open the shader file
-        shaderFile.open(shaderPath);
-
-        std::stringstream shaderStream;
-
-        // Read file's buffer contents into streams
-        shaderStream << shaderFile.rdbuf();
-
-        // Close the shader file
-        shaderFile.close();
-
-        // Convert stream into a string
-        shaderCode = shaderStream.str();
-    }
-    catch (const std::ifstream::failure& e) {
-        std::cerr << "Error: Failed to read shader file: " << shaderPath << std::endl;
-        return 0;
-    }
-
     const char* shaderCodeCStr = shaderCode.c_str();
     glShaderSource(shader, 1, &shaderCodeCStr, nullptr);
     glCompileShader(shader);

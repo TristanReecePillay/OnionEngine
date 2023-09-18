@@ -45,9 +45,9 @@ glm::vec3 cameraPositions[3] = {
 
 int currentCamera = 0; // Index of the currently active camera
 
-// Create the Shader and terrain object
-Shader shader("vertex_shader.glsl", "fragment_shader.glsl");  
-Terrain terrain("../Textures/HeightMap2.png");  
+// Create terrain object
+  
+//Terrain terrain("../Textures/HeightMap2.png");  
 
 // Defining a 2D vector to store the height offsets for each square SO that it doesnt render every frame 
 //and look jittery 
@@ -157,18 +157,22 @@ int main(int argc, char* argv[]) {
         glutDestroyWindow(window);
         return -1;
     }
+   // create the Shader 
+    //const char* vertexShaderPath = "../vertex_shader.glsl";
+    //const char* fragmentShaderPath = "../fragment_shader.glsl";
+    //Shader shader("vertex_shader.glsl", "fragment_shader.glsl");
 
-    // Define and initialize model, view, and projection matrices
-    glm::mat4 modelMatrix = glm::mat4(1.0f); // Initialize as an identity matrix   
-    glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Example view matrix   
-    glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 1.0f, 1000.0f); // Example projection matrix   
+    //// Define and initialize model, view, and projection matrices
+    //glm::mat4 modelMatrix = glm::mat4(1.0f); // Initialize as an identity matrix   
+    //glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Example view matrix   
+    //glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 1.0f, 1000.0f); // Example projection matrix   
 
-    // Set shader uniforms for model, view, and projection matrices
-    shader.use();  
-    shader.setMat4("model", modelMatrix);    
-    shader.setMat4("view", viewMatrix);   
-    shader.setMat4("projection", projectionMatrix);   
-    shader.unuse();  
+    //// Set shader uniforms for model, view, and projection matrices
+    //shader.use();  
+    //shader.setMat4("model", modelMatrix);    
+    //shader.setMat4("view", viewMatrix);   
+    //shader.setMat4("projection", projectionMatrix);   
+    //shader.unuse();  
      
 
     // Initialize the chessboard with random height offsets
@@ -206,13 +210,13 @@ void init() {
 void initGameObjects() {
  
     //Create the terrain object
-    terrain.setupMesh();   
+    //terrain.setupMesh();   
 }
 
 void cleanUp() {
    
-    shader;
-    terrain;
+    //shader;
+    //terrain;
 }
 
 
@@ -278,7 +282,7 @@ void display() {
     );
 
     ////Render the terrain
-    terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));
+    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));
 
     glRotatef(-90, 1, 1, 0);
     
