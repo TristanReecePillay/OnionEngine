@@ -50,9 +50,10 @@ glm::vec3 cameraPositions[3] = {
 };
 
 int currentCamera = 0; // Index of the currently active camera
+
 // Create the Shader object
-/*Shader shader("vertex_shader.glsl", "fragment_shader.glsl"); 
-Terrain terrain("../Textures/HeightMap2.png");*/ 
+/*Shader shader("vertex_shader.glsl", "fragment_shader.glsl");  
+Terrain terrain("../Textures/HeightMap2.png");*/  
 
 // Defining a 2D vector to store the height offsets for each square SO that it doesnt render every frame 
 //and look jittery 
@@ -90,10 +91,6 @@ void generateChessboard() {
     for (int row = 0; row < chessboardSize; row++) {
         for (int col = 0; col < chessboardSize; col++) {
 
-            // Calculate position for each square
-           // GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth); //- 4.0f;
-           // GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth); //- 4.0f;
-           // GLfloat zPos = 0.0f; // Chessboard is at a height of 0.5 units
             GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth) - (chessboardSize - 1) * 0.5f * (cellSize + borderWidth); 
             GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth) - (chessboardSize - 1) * 0.5f * (cellSize + borderWidth); 
             GLfloat zPos = squareHeights[row][col];
@@ -101,12 +98,6 @@ void generateChessboard() {
             // Determine the square color based on row and column
             glm::vec3 squareColor = ((row + col) % 2 == 0) ? blackSquareColor : whiteSquareColor;
 
-            // Applying the offsets to each square
-            //GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
-            //GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
-
-            // Apply the height offset
-             // zPos += xOffset + yOffset;
           
             // Begin immediate mode rendering
             glBegin(GL_QUADS);
@@ -148,14 +139,6 @@ void generateChessboard() {
             glVertex3f(xPos, yPos + cellSize, zPos - cellDepth);
             glVertex3f(xPos, yPos, zPos - cellDepth);
 
-          /*  //  Define vertices and colors for the square
-            glColor3f(squareColor.r, squareColor.g, squareColor.b);
-            glVertex3f(xPos, yPos, zPos);
-            glVertex3f(xPos + cellSize, yPos, zPos);
-            glVertex3f(xPos + cellSize, yPos + cellSize, zPos);
-            glVertex3f(xPos, yPos + cellSize, zPos);*/
-
-            // End immediate mode rendering for the square
             glEnd();
         }
     }
@@ -171,9 +154,16 @@ int main(int argc, char* argv[]) {
 
     glutInitWindowPosition(windowX, windowY);
     glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("Terrain Renderer");
+    int window = glutCreateWindow("Terrain Renderer");
 
-   
+    // Initialize GLEW
+    GLenum glewInitResult = glewInit();
+    if (glewInitResult != GLEW_OK) {
+        std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
+        glutDestroyWindow(window);
+        return -1;
+    }
+
     //// Define and initialize model, view, and projection matrices
     //glm::mat4 modelMatrix = glm::mat4(1.0f); // Initialize as an identity matrix  
     //glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Example view matrix  
@@ -184,7 +174,7 @@ int main(int argc, char* argv[]) {
     //shader.setMat4("model", modelMatrix);   
     //shader.setMat4("view", viewMatrix);  
     //shader.setMat4("projection", projectionMatrix);  
-    //shader.unuse();
+    //shader.unuse(); 
     
     
     // Initialize the chessboard with random height offsets
@@ -200,7 +190,6 @@ int main(int argc, char* argv[]) {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
 
-
     glutMainLoop();
     
     cleanUp();
@@ -213,35 +202,36 @@ void init() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     
-    gluPerspective(30.0, (double)WIDTH / (double)HEIGHT, 1.0, 1000.0);
+    gluPerspective(50.0, (double)WIDTH / (double)HEIGHT, 1.0, 1000.0);
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); //(0.6f, 0.8f, 0.9f, 1.0f) For light blue
+    glClearColor(0.6f, 0.8f, 0.9f, 1.0f); //(0.6f, 0.8f, 0.9f, 1.0f) For light blue
 
     initGameObjects();
 }
 
 void initGameObjects() {
-    textureManager = new TextureManager();
-    texturedCube = new TexturedCube();
-    texturedCube->generateDisplayList();
+    textureManager = new TextureManager(); 
+    texturedCube = new TexturedCube(); 
+    texturedCube->generateDisplayList(); 
 
     //delete textureManager;
     //delete texturedCube;
 
     //Create the terrain object
-    //terrain.setupMesh();  
+    //terrain.setupMesh();   
 }
 
 void cleanUp() {
     delete textureManager;
     delete gameObject;
     delete texturedCube;
+    
 }
 
 
 void drawBorder() {
     // Set the color for the border
-    glColor3f(0.6f, 0.8f, 0.2f); // Color of border
+    glColor3f(1.0f, 1.0f, 1.0f); // Color of border
     //0.5f, 0.2f, 0.0f //brown
     //0.8f, 0.6f, 0.0f //Mustard
     //0.6f, 0.8f, 0.2f// Best Color : Green
@@ -301,9 +291,8 @@ void display() {
     );
 
     glRotatef(-90, 1, 1, 0);
-    textureManager->useTexture("map");
-    texturedCube->draw();
-
+    //textureManager->useTexture("map");
+    //texturedCube->draw();
 
     // Draw the border
     drawBorder();
@@ -311,7 +300,7 @@ void display() {
     generateChessboard(); // Calling the function that renders the chessboard
 
     //Render the terrain
-    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));   
+    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));    
 
     glutSwapBuffers();
 }

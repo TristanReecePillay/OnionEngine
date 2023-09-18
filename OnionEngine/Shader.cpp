@@ -52,6 +52,7 @@ void Shader::setInt(const std::string& name, int value) const {
 
 GLuint Shader::compileShader(GLenum shaderType, const char* shaderPath)
 {
+    
     GLuint shader = glCreateShader(shaderType); //There's an issue here that we can't quite figure out
     std::string shaderCode;
     std::ifstream shaderFile;
