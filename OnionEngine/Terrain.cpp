@@ -14,7 +14,7 @@ Terrain::Terrain(const char* heightmapPath) {
     loadHeightmap(heightmapPath);
     generateTerrain();
     setupMesh();
-    loadTexture("../Textures/HeightMap2.png"); // Change to your texture path
+    loadTexture("../Textures/HeightMap3.png"); // Change to your texture path
 }
 
 Terrain::~Terrain() {

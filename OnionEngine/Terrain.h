@@ -16,6 +16,7 @@ public:
     ~Terrain();
 
     void render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+    void setupMesh(); 
 
 private:
     GLuint VAO, VBO, EBO, textureID;
@@ -26,10 +27,10 @@ private:
     // Helper functions
     void loadHeightmap(const char* heightmapPath);
     void generateTerrain();
-    void setupMesh();
     void loadTexture(const char* texturePath);
 };
 
 #endif
+
 
 
