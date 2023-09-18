@@ -6,9 +6,6 @@
 #include <GLFW/glfw3.h>
 #include <GL/freeglut.h>
 #include <cmath>
-#include "GameObject.h"
-#include "TextureManager.h"
-#include "TexturedCube.h"
 #include "Terrain.h"
 #include "Shader.h"
 #include <glm/glm.hpp>
@@ -39,9 +36,6 @@ void keyCallback(unsigned char key, int x, int y); // Added key callback to swit
 void specialKeyCallback(int key, int x, int y);
 void generateChessboard();
 
-TextureManager* textureManager;
-GameObject* gameObject;
-TexturedCube* texturedCube; 
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(-20.0f, 0.0f, 0.0f),  // Camera 0 position
@@ -51,9 +45,9 @@ glm::vec3 cameraPositions[3] = {
 
 int currentCamera = 0; // Index of the currently active camera
 
-// Create the Shader object
-/*Shader shader("vertex_shader.glsl", "fragment_shader.glsl");  
-Terrain terrain("../Textures/HeightMap2.png");*/  
+// Create the Shader and terrain object
+Shader shader("vertex_shader.glsl", "fragment_shader.glsl");  
+Terrain terrain("../Textures/HeightMap2.png");  
 
 // Defining a 2D vector to store the height offsets for each square SO that it doesnt render every frame 
 //and look jittery 
@@ -164,20 +158,18 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    //// Define and initialize model, view, and projection matrices
-    //glm::mat4 modelMatrix = glm::mat4(1.0f); // Initialize as an identity matrix  
-    //glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Example view matrix  
-    //glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 1.0f, 1000.0f); // Example projection matrix  
+    // Define and initialize model, view, and projection matrices
+    glm::mat4 modelMatrix = glm::mat4(1.0f); // Initialize as an identity matrix   
+    glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Example view matrix   
+    glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 1.0f, 1000.0f); // Example projection matrix   
 
-    //// Set shader uniforms for model, view, and projection matrices
-    //shader.use(); 
-    //shader.setMat4("model", modelMatrix);   
-    //shader.setMat4("view", viewMatrix);  
-    //shader.setMat4("projection", projectionMatrix);  
-    //shader.unuse(); 
-    //
-    ////Render the terrain
-    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f)); 
+    // Set shader uniforms for model, view, and projection matrices
+    shader.use();  
+    shader.setMat4("model", modelMatrix);    
+    shader.setMat4("view", viewMatrix);   
+    shader.setMat4("projection", projectionMatrix);   
+    shader.unuse();  
+     
 
     // Initialize the chessboard with random height offsets
     initializeChessboard();
@@ -212,22 +204,15 @@ void init() {
 }
 
 void initGameObjects() {
-    textureManager = new TextureManager(); 
-    texturedCube = new TexturedCube(); 
-    texturedCube->generateDisplayList(); 
-
-    //delete textureManager;
-    //delete texturedCube;
-
+ 
     //Create the terrain object
-    //terrain.setupMesh();   
+    terrain.setupMesh();   
 }
 
 void cleanUp() {
-    delete textureManager;
-    delete gameObject;
-    delete texturedCube;
-    
+   
+    shader;
+    terrain;
 }
 
 
@@ -292,10 +277,11 @@ void display() {
         0.0, 1.0, 0.0
     );
 
-    glRotatef(-90, 1, 1, 0);
-    //textureManager->useTexture("map");
-    //texturedCube->draw();
+    ////Render the terrain
+    terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));
 
+    glRotatef(-90, 1, 1, 0);
+    
     // Draw the border
     drawBorder();
     // Renders the chessboard here
