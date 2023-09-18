@@ -233,7 +233,7 @@ void cleanUp() {
 
 void drawBorder() {
     // Set the color for the border
-    glColor3f(1.0f, 1.0f, 1.0f); // Color of border
+    glColor3f(0.6f, 0.8f, 0.2f); // Color of border
     //0.5f, 0.2f, 0.0f //brown
     //0.8f, 0.6f, 0.0f //Mustard
     //0.6f, 0.8f, 0.2f// Best Color : Green
