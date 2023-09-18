@@ -175,8 +175,10 @@ int main(int argc, char* argv[]) {
     //shader.setMat4("view", viewMatrix);  
     //shader.setMat4("projection", projectionMatrix);  
     //shader.unuse(); 
-    
-    
+    //
+    ////Render the terrain
+    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f)); 
+
     // Initialize the chessboard with random height offsets
     initializeChessboard();
 
@@ -298,9 +300,6 @@ void display() {
     drawBorder();
     // Renders the chessboard here
     generateChessboard(); // Calling the function that renders the chessboard
-
-    //Render the terrain
-    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));    
 
     glutSwapBuffers();
 }

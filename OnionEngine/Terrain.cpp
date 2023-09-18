@@ -10,7 +10,7 @@ Terrain::Terrain(const char* heightmapPath) {
     // Initialize member variables and load heightmap
     width = 50; 
     height = 50;
-    textureID = 1;
+    textureID = 0;
     loadHeightmap(heightmapPath);
     generateTerrain();
     setupMesh();
@@ -26,7 +26,7 @@ Terrain::~Terrain() {
 
 void Terrain::render(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
     // Use appropriate shader program
-    Shader shader("vertex_shader.vert.glsl", "fragment_shader.glsl"); 
+    Shader shader("vertex_shader.glsl", "fragment_shader.glsl"); 
     shader.use(); 
 
     // Set shader uniforms for view and projection matrices
@@ -77,11 +77,11 @@ void Terrain::generateTerrain() {
     indices.clear();
 
     // Calculate the step size between terrain points
-    float stepX = 1.0f; // Adjust as needed
+    float stepX = 1.0f; 
     float stepY = 1.0f; // Adjust as needed
 
     // Calculate the number of vertices in the x and y directions
-    int numVerticesX = width; // Assuming 1 vertex per pixel
+    int numVerticesX = width; 
     int numVerticesY = height; // Assuming 1 vertex per pixel
 
     // Create vertices
@@ -148,6 +148,20 @@ void Terrain::setupMesh() {
 }
 
 void Terrain::loadTexture(const char* texturePath) {
-    // Load and generate the terrain texture
+    // Use the same heightmap image as the texture
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
     // Set texture parameters (e.g., filtering, wrapping)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    // Load the heightmap data as the texture data
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, &vertices[0]);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
+
