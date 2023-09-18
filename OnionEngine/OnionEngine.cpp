@@ -44,9 +44,9 @@ GameObject* gameObject;
 TexturedCube* texturedCube; 
 
 glm::vec3 cameraPositions[3] = {
-    glm::vec3(0.0f, 0.0f, 5.0f),  // Camera 0 position
-    glm::vec3(5.0f, -5.0f, 0.0f),  // Camera 1 position
-    glm::vec3(-5.0f, 0.0f, 0.0f) // Camera 2 position
+    glm::vec3(-20.0f, 0.0f, 0.0f),  // Camera 0 position
+    glm::vec3(5.0f, 15.0f, 0.0f),  // Camera 1 position
+    glm::vec3(10.0f, 20.0f, 0.0f) // Camera 2 position
 };
 
 int currentCamera = 0; // Index of the currently active camera
@@ -56,7 +56,7 @@ int currentCamera = 0; // Index of the currently active camera
 
 // Defining a 2D vector to store the height offsets for each square SO that it doesnt render every frame 
 //and look jittery 
-std::vector<std::vector<GLfloat>> squareHeights(chessboardSize, std::vector<GLfloat>(chessboardSize, 0.0f));
+std::vector<std::vector<GLfloat>> squareHeights(chessboardSize, std::vector<GLfloat>(chessboardSize, 0.0f)); 
 
 void initializeChessboard() {
     // Calculate and store random height offsets for each square
@@ -84,28 +84,29 @@ void generateChessboard() {
     const glm::vec3 borderColor(0.2f, 0.2f, 0.2f); // Gray border color
 
     // Calculate square height randomization range
-    const GLfloat minHeightOffset = -0.05f; // Minimum height offset
+    const GLfloat minHeightOffset = 0.00f; // Minimum height offset
     const GLfloat maxHeightOffset = 0.05f;  // Maximum height offset
 
     for (int row = 0; row < chessboardSize; row++) {
         for (int col = 0; col < chessboardSize; col++) {
+
             // Calculate position for each square
            // GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth); //- 4.0f;
            // GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth); //- 4.0f;
            // GLfloat zPos = 0.0f; // Chessboard is at a height of 0.5 units
-            GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth);
-            GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth);
+            GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth) - (chessboardSize - 1) * 0.5f * (cellSize + borderWidth); 
+            GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth) - (chessboardSize - 1) * 0.5f * (cellSize + borderWidth); 
             GLfloat zPos = squareHeights[row][col];
 
             // Determine the square color based on row and column
             glm::vec3 squareColor = ((row + col) % 2 == 0) ? blackSquareColor : whiteSquareColor;
 
             // Applying the offsets to each square
-           // GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
-          //  GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+            //GLfloat xOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
+            //GLfloat yOffset = (static_cast<GLfloat>(rand()) / RAND_MAX) * (maxHeightOffset - minHeightOffset) + minHeightOffset;
 
             // Apply the height offset
-          //  zPos += xOffset + yOffset;
+             // zPos += xOffset + yOffset;
           
             // Begin immediate mode rendering
             glBegin(GL_QUADS);
@@ -147,7 +148,7 @@ void generateChessboard() {
             glVertex3f(xPos, yPos + cellSize, zPos - cellDepth);
             glVertex3f(xPos, yPos, zPos - cellDepth);
 
-          /*  // Define vertices and colors for the square
+          /*  //  Define vertices and colors for the square
             glColor3f(squareColor.r, squareColor.g, squareColor.b);
             glVertex3f(xPos, yPos, zPos);
             glVertex3f(xPos + cellSize, yPos, zPos);
@@ -213,11 +214,11 @@ void init() {
     
     gluPerspective(50.0, (double)WIDTH / (double)HEIGHT, 1.0, 1000.0);
 
-    gluLookAt(
+   /* gluLookAt(
         0.0, 0.0, 5.0,
         0.0, 0.0, 0.0,
         0.0, 1.0, 0.0
-    );
+    );*/
 
     glClearColor(0.6f, 0.8f, 0.9f, 1.0f);
 
@@ -279,10 +280,10 @@ void drawBorder() {
     //0.6f, 0.8f, 0.2f// Best Color : Green
 
     // Calculate the positions and dimensions for the border rectangles
-    GLfloat borderThickness = 0.5f; // Changes border thickness //1 looks better but becayse of the brief
+    GLfloat borderThickness = 0.5f; // Changes border thickness //1 looks better but because of the brief
     GLfloat chessboardSize = 8.0f; // Changes the chessboard size
-    GLfloat xOffset = -borderThickness;
-    GLfloat yOffset = -borderThickness;
+    GLfloat xOffset = -borderThickness * 1.0f * chessboardSize;
+    GLfloat yOffset = -borderThickness * 1.0f * chessboardSize;
     GLfloat width = (chessboardSize + 2 * borderThickness);
     GLfloat height = (chessboardSize + 2 * borderThickness);
 
@@ -333,7 +334,7 @@ void display() {
         0.0, 1.0, 0.0
     );
 
-    glRotatef(45, 1, 1, 0);
+    glRotatef(-90, 1, 1, 0);
     textureManager->useTexture("map");
     texturedCube->draw();
 
