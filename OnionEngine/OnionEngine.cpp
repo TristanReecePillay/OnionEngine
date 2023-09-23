@@ -41,7 +41,6 @@ void generateChessboard();
 
 
 TextureManager* textureManager;
-
 GameObject* gameObject;
 TerrainGameObject* terrain; 
 
@@ -215,7 +214,6 @@ void cleanUp() {
     delete textureManager;
     delete gameObject;
     delete terrain;
-   
 }
 
 
@@ -280,8 +278,12 @@ void display() {
         0.0, 1.0, 0.0
     );
 
+    glPushMatrix(); { 
+        terrain->draw(); 
+    }
+    glPopMatrix(); 
+
     glRotatef(-90, 1, 1, 0);
-    
     // Draw the border
     drawBorder();
     // Renders the chessboard here
