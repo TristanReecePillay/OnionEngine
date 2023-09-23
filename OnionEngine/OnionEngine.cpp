@@ -3,11 +3,14 @@
 #include <fstream>
 #include <sstream>
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <GL/freeglut.h>
 #include <cmath>
 #include "Terrain.h"
 #include "Shader.h"
+#include "GameObject.h"
+#include "Settings.h"
+#include "TextureManager.h"
+#include "TerrainGameObject.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC
@@ -37,6 +40,11 @@ void specialKeyCallback(int key, int x, int y);
 void generateChessboard();
 
 
+TextureManager* textureManager;
+
+GameObject* gameObject;
+TerrainGameObject* terrain; 
+
 glm::vec3 cameraPositions[3] = {
     glm::vec3(-20.0f, 0.0f, 0.0f),  // Camera 0 position
     glm::vec3(5.0f, 15.0f, 0.0f),  // Camera 1 position
@@ -44,11 +52,7 @@ glm::vec3 cameraPositions[3] = {
 };
 
 int currentCamera = 0; // Index of the currently active camera
-
-// Create terrain object
-  
-//Terrain terrain("../Textures/HeightMap2.png");  
-
+ 
 // Defining a 2D vector to store the height offsets for each square SO that it doesnt render every frame 
 //and look jittery 
 std::vector<std::vector<GLfloat>> squareHeights(chessboardSize, std::vector<GLfloat>(chessboardSize, 0.0f)); 
@@ -151,29 +155,13 @@ int main(int argc, char* argv[]) {
     int window = glutCreateWindow("Terrain Renderer");
 
     // Initialize GLEW
-    GLenum glewInitResult = glewInit();
+    /*GLenum glewInitResult = glewInit();
     if (glewInitResult != GLEW_OK) {
         std::cerr << "GLEW initialization failed: " << glewGetErrorString(glewInitResult) << std::endl;
         glutDestroyWindow(window);
         return -1;
-    }
-   // create the Shader 
-    //const char* vertexShaderPath = "../vertex_shader.glsl";
-    //const char* fragmentShaderPath = "../fragment_shader.glsl";
-    //Shader shader("vertex_shader.glsl", "fragment_shader.glsl");
-
-    //// Define and initialize model, view, and projection matrices
-    //glm::mat4 modelMatrix = glm::mat4(1.0f); // Initialize as an identity matrix   
-    //glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Example view matrix   
-    //glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 1.0f, 1000.0f); // Example projection matrix   
-
-    //// Set shader uniforms for model, view, and projection matrices
-    //shader.use();  
-    //shader.setMat4("model", modelMatrix);    
-    //shader.setMat4("view", viewMatrix);   
-    //shader.setMat4("projection", projectionMatrix);   
-    //shader.unuse();  
-     
+    }*/
+  
 
     // Initialize the chessboard with random height offsets
     initializeChessboard();
@@ -210,13 +198,24 @@ void init() {
 void initGameObjects() {
  
     //Create the terrain object
-    //terrain.setupMesh();   
+    //terrain.setupMesh();
+    textureManager = new TextureManager();
+
+    gameObject = new GameObject();
+    gameObject->setPosition(1, 0, 0);
+
+    //creates terrain
+    terrain = new TerrainGameObject(textureManager->getTexture("heightmap"), 50, 5);
+    terrain->generateDisplayList();
+
+
 }
 
 void cleanUp() {
+    delete textureManager;
+    delete gameObject;
+    delete terrain;
    
-    //shader;
-    //terrain;
 }
 
 
@@ -280,9 +279,6 @@ void display() {
         cameraTarget.x, cameraTarget.y, cameraTarget.z,
         0.0, 1.0, 0.0
     );
-
-    ////Render the terrain
-    //terrain.render(glm::mat4(1.0f), glm::mat4(1.0f));
 
     glRotatef(-90, 1, 1, 0);
     
