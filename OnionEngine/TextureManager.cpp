@@ -5,10 +5,10 @@
 using namespace std;
 
 TextureManager::TextureManager() {
-	textures.insert({ "brick", new Texture("../GameObject/Textures/bricks.png") });
-	textures.insert({ "dirt", new Texture("../GameObject/Textures/dirt.png") });
-	textures.insert({ "gold", new Texture("../GameObject/Textures/gold_block.png") });
-	textures.insert({ "heightmap", new Texture("../GameObject/Textures/HeightMap3.png", 1) });
+	textures.insert({ "brick", new Texture("../Textures/bricks.png") });
+	textures.insert({ "dirt", new Texture("../Textures/dirt.png") });
+	textures.insert({ "gold", new Texture("../Textures/gold_block.png") });
+	textures.insert({ "heightmap", new Texture("../Textures/HeightMap3.png", 0) });
 }
 
 TextureManager::~TextureManager() {

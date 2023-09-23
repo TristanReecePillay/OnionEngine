@@ -15,7 +15,7 @@ private:
 	unsigned char* image;
 	int width;
 	int height;
-	int channels;
+	int channels; 
 	int desiredChannels;
 	bool loaded = false;
 	void loadTexture(const char* path);

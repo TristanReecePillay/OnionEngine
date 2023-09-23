@@ -45,9 +45,9 @@ GameObject* gameObject;
 TerrainGameObject* terrain; 
 
 glm::vec3 cameraPositions[3] = {
-    glm::vec3(-20.0f, 0.0f, 0.0f),  // Camera 0 position
-    glm::vec3(5.0f, 15.0f, 0.0f),  // Camera 1 position
-    glm::vec3(10.0f, 20.0f, 0.0f) // Camera 2 position
+    glm::vec3(20.0f, 20.0f, -10.0f),  // Camera 0 position
+    glm::vec3(50.0f, -50.0f, 0.0f),  // Camera 1 position
+    glm::vec3(50.0f, 50.0f, 0.0f) // Camera 2 position
 };
 
 int currentCamera = 0; // Index of the currently active camera
@@ -71,6 +71,7 @@ void initializeChessboard() {
 
 void generateChessboard() {
     //Updated 
+
     // Define chessboard dimensions
     const int chessboardSize = 8; // 8x8 grid
     const GLfloat cellSize = 1.0f; // Each cell is 1x1 units
@@ -84,6 +85,7 @@ void generateChessboard() {
     // Calculate square height randomization range
     const GLfloat minHeightOffset = 0.00f; // Minimum height offset
     const GLfloat maxHeightOffset = 0.05f;  // Maximum height offset
+
 
     for (int row = 0; row < chessboardSize; row++) {
         for (int col = 0; col < chessboardSize; col++) {
@@ -278,12 +280,13 @@ void display() {
         0.0, 1.0, 0.0
     );
 
-    glPushMatrix(); { 
-        terrain->draw(); 
+    glPushMatrix(); {
+        terrain->draw();
     }
-    glPopMatrix(); 
+    glPopMatrix();
+  
+    glRotatef(-90, 1, 0, 0);
 
-    glRotatef(-90, 1, 1, 0);
     // Draw the border
     drawBorder();
     // Renders the chessboard here
