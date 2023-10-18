@@ -46,7 +46,7 @@ TerrainGameObject* terrain;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(20.0f, 20.0f, -10.0f),  // Camera 0 position
-    glm::vec3(50.0f, -50.0f, 0.0f),  // Camera 1 position
+    glm::vec3(50.0f, 20.0f, 0.0f),  // Camera 1 position
     glm::vec3(50.0f, 50.0f, 0.0f) // Camera 2 position
 };
 
@@ -92,7 +92,7 @@ void generateChessboard() {
 
             GLfloat xPos = static_cast<GLfloat>(col) * (cellSize + borderWidth) - (chessboardSize - 1) * 0.5f * (cellSize + borderWidth); 
             GLfloat yPos = static_cast<GLfloat>(row) * (cellSize + borderWidth) - (chessboardSize - 1) * 0.5f * (cellSize + borderWidth); 
-            GLfloat zPos = squareHeights[row][col];
+            GLfloat zPos = 5.0f; //squareHeights[row][col];
 
             // Determine the square color based on row and column
             glm::vec3 squareColor = ((row + col) % 2 == 0) ? blackSquareColor : whiteSquareColor;
@@ -219,7 +219,7 @@ void cleanUp() {
 }
 
 
-void drawBorder() {
+void drawBorder(float zPos) {
     // Set the color for the border
     glColor3f(0.6f, 0.8f, 0.2f); // Color of border
     //0.5f, 0.2f, 0.0f //brown
@@ -238,28 +238,28 @@ void drawBorder() {
     glBegin(GL_QUADS);
 
     // Top border
-    glVertex3f(xOffset, yOffset, 0.0f);
-    glVertex3f(xOffset + width, yOffset, 0.0f);
-    glVertex3f(xOffset + width, yOffset + borderThickness, 0.0f);
-    glVertex3f(xOffset, yOffset + borderThickness, 0.0f);
+    glVertex3f(xOffset, yOffset, zPos);
+    glVertex3f(xOffset + width, yOffset, zPos);
+    glVertex3f(xOffset + width, yOffset + borderThickness, zPos);
+    glVertex3f(xOffset, yOffset + borderThickness, zPos);
 
     // Bottom border
-    glVertex3f(xOffset, yOffset + height - borderThickness, 0.0f);
-    glVertex3f(xOffset + width, yOffset + height - borderThickness, 0.0f);
-    glVertex3f(xOffset + width, yOffset + height, 0.0f);
-    glVertex3f(xOffset, yOffset + height, 0.0f);
+    glVertex3f(xOffset, yOffset + height - borderThickness, zPos);
+    glVertex3f(xOffset + width, yOffset + height - borderThickness, zPos);
+    glVertex3f(xOffset + width, yOffset + height, zPos);
+    glVertex3f(xOffset, yOffset + height, zPos);
 
     // Left border
-    glVertex3f(xOffset, yOffset + borderThickness, 0.0f);
-    glVertex3f(xOffset + borderThickness, yOffset + borderThickness, 0.0f);
-    glVertex3f(xOffset + borderThickness, yOffset + height - borderThickness, 0.0f);
-    glVertex3f(xOffset, yOffset + height - borderThickness, 0.0f);
+    glVertex3f(xOffset, yOffset + borderThickness, zPos);
+    glVertex3f(xOffset + borderThickness, yOffset + borderThickness, zPos);
+    glVertex3f(xOffset + borderThickness, yOffset + height - borderThickness, zPos);
+    glVertex3f(xOffset, yOffset + height - borderThickness, zPos);
 
     // Right border
-    glVertex3f(xOffset + width - borderThickness, yOffset + borderThickness, 0.0f);
-    glVertex3f(xOffset + width, yOffset + borderThickness, 0.0f);
-    glVertex3f(xOffset + width, yOffset + height - borderThickness, 0.0f);
-    glVertex3f(xOffset + width - borderThickness, yOffset + height - borderThickness, 0.0f);
+    glVertex3f(xOffset + width - borderThickness, yOffset + borderThickness, zPos);
+    glVertex3f(xOffset + width, yOffset + borderThickness, zPos);
+    glVertex3f(xOffset + width, yOffset + height - borderThickness, zPos);
+    glVertex3f(xOffset + width - borderThickness, yOffset + height - borderThickness, zPos);
 
     glEnd();
 }
@@ -287,10 +287,13 @@ void display() {
   
     glRotatef(-90, 1, 0, 0);
 
-    // Draw the border
-    drawBorder();
+   
     // Renders the chessboard here
     generateChessboard(); // Calling the function that renders the chessboard
+
+    // Draw the border
+    float zPos = 5.0f;
+    drawBorder(zPos);
 
     glutSwapBuffers();
 }
