@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Border.cpp" />
     <ClCompile Include="Chessboard.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Pixel.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Border.h" />
     <ClInclude Include="Chessboard.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Pixel.h" />
