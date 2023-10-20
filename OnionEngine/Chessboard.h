@@ -4,7 +4,7 @@
 
 class Chessboard : public GameObject
 {
-private:
-	void drawGeometry();
+ private:
+	 void drawGeometry() override;
 };
 

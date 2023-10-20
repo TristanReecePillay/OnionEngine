@@ -5,6 +5,6 @@
 class Border : public GameObject
 {
 private:
-	void drawGeometry();
+	void drawGeometry() override;
 };
 

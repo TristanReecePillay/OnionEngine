@@ -30,7 +30,7 @@ void GameObject::draw() {
         }
 
         //if (Settings::debug)
-        drawOrigin();
+        //drawOrigin();
     }
     glPopMatrix();
 }

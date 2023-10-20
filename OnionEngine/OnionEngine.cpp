@@ -37,8 +37,6 @@ void cleanUp();
 void keyCallback(unsigned char key, int x, int y); // Added key callback to switch camera positions
 void specialKeyCallback(int key, int x, int y);
 
-
-
 TextureManager* textureManager;
 GameObject* gameObject;
 TerrainGameObject* terrain; 
@@ -121,59 +119,6 @@ void cleanUp() {
 }
 
 
-//void drawBorder() {
-//    // Set the color for the border
-//    //glColor3f(0.68f, 0.4f, 0.8f); // Color of border
-//    //0.5f, 0.2f, 0.0f //brown
-//    //0.8f, 0.6f, 0.0f //Mustard
-//    //0.6f, 0.8f, 0.2f// Best Color : Green
-//
-//    // Calculate the positions and dimensions for the border rectangles
-//    GLfloat borderThickness = 0.5f; // Changes border thickness //1 looks better but because of the brief
-//    GLfloat chessboardSize = 8.0f; // Changes the chessboard size
-//    GLfloat xOffset = -borderThickness * 1.0f * chessboardSize;
-//    GLfloat yOffset = -borderThickness * 1.0f * chessboardSize;
-//    GLfloat width = (chessboardSize + 2 * borderThickness);
-//    GLfloat height = (chessboardSize + 2 * borderThickness);
-//    GLfloat zPos = 5.0f;
-//
-//    // Draw the border using OpenGL rectangles
-//    glBegin(GL_QUADS);
-//
-//    // Top border
-//    glColor3f(0.55f, 0.87f, 0.44f);
-//    glVertex3f(xOffset, yOffset, zPos);
-//    glVertex3f(xOffset + width, yOffset, zPos);
-//    glVertex3f(xOffset + width, yOffset + borderThickness, zPos);
-//    glVertex3f(xOffset, yOffset + borderThickness, zPos);
-//
-//    // Bottom border
-//    glColor3f(0.9f, 0.25f, 0.25f);
-//    glVertex3f(xOffset, yOffset + height - borderThickness, zPos);
-//    glVertex3f(xOffset + width, yOffset + height - borderThickness, zPos);
-//    glVertex3f(xOffset + width, yOffset + height, zPos);
-//    glVertex3f(xOffset, yOffset + height, zPos);
-//
-//   
-//
-//    // Left border
-//    glColor3f(0.4f, 0.8f, 0.8f);
-//    glVertex3f(xOffset, yOffset + borderThickness, zPos);
-//    glVertex3f(xOffset + borderThickness, yOffset + borderThickness, zPos);
-//    glVertex3f(xOffset + borderThickness, yOffset + height - borderThickness, zPos);
-//    glVertex3f(xOffset, yOffset + height - borderThickness, zPos);
-//
-//
-//    // Right border
-//    glColor3f(0.68f, 0.4f, 0.8f);
-//    glVertex3f(xOffset + width - borderThickness, yOffset + borderThickness, zPos);
-//    glVertex3f(xOffset + width, yOffset + borderThickness, zPos);
-//    glVertex3f(xOffset + width, yOffset + height - borderThickness, zPos);
-//    glVertex3f(xOffset + width - borderThickness, yOffset + height - borderThickness, zPos);
-//
-//    glEnd();
-//}
-
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -197,10 +142,6 @@ void display() {
         border->draw();
     }
     glPopMatrix();
-    
-    glRotatef(-90, 1, 0, 0);
-    // Draw the border
-    //drawBorder();
 
     glutSwapBuffers();
 }

@@ -9,7 +9,7 @@ GLfloat xOffset = -borderThickness * 1.0f * chessboardSize;
 GLfloat yOffset = -borderThickness * 1.0f * chessboardSize;
 GLfloat width = (chessboardSize + 2 * borderThickness);
 GLfloat height = (chessboardSize + 2 * borderThickness);
-GLfloat zPos = 5.0f;
+GLfloat zPos = 4.8f;
 
 void Border::drawGeometry() {
 
