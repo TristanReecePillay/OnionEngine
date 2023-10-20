@@ -8,7 +8,7 @@ TextureManager::TextureManager() {
 	textures.insert({ "brick", new Texture("../Textures/bricks.png") });
 	textures.insert({ "dirt", new Texture("../Textures/dirt.png") });
 	textures.insert({ "gold", new Texture("../Textures/gold_block.png") });
-	textures.insert({ "heightmap", new Texture("../Textures/HeightMap3.png", 0) });
+	textures.insert({ "heightmap", new Texture("../Textures/HeightMap4.jpg", 0) });
 }
 
 TextureManager::~TextureManager() {
