@@ -46,8 +46,8 @@ Border* border;
 Rook* rook;
 
 glm::vec3 cameraPositions[3] = {
-    glm::vec3(20.0f, 20.0f, -10.0f),  // Camera 0 position
-    glm::vec3(30.0f, 10.0f, 0.0f),  // Camera 1 position
+    glm::vec3(30.0f, 10.0f, 0.0f),  // Camera 0 position
+    glm::vec3(20.0f, 20.0f, -10.0f),  // Camera 1 position
     glm::vec3(50.0f, 50.0f, 50.0f) // Camera 2 position
 };
 
