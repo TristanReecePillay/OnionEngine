@@ -137,6 +137,7 @@
     <ClCompile Include="Chessboard.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="Rook.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="OnionEngine.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Chessboard.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Pixel.h" />
+    <ClInclude Include="Rook.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Terrain.h" />

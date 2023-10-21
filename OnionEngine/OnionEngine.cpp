@@ -13,6 +13,7 @@
 #include "TerrainGameObject.h"
 #include "Chessboard.h"
 #include "Border.h"
+#include "Rook.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC
@@ -42,10 +43,11 @@ GameObject* gameObject;
 TerrainGameObject* terrain; 
 Chessboard* chessboard;
 Border* border;
+Rook* rook;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(20.0f, 20.0f, -10.0f),  // Camera 0 position
-    glm::vec3(50.0f, 20.0f, 0.0f),  // Camera 1 position
+    glm::vec3(30.0f, 10.0f, 0.0f),  // Camera 1 position
     glm::vec3(50.0f, 50.0f, 50.0f) // Camera 2 position
 };
 
@@ -105,6 +107,9 @@ void initGameObjects() {
     border = new Border();
     border->generateDisplayList();
 
+    rook = new Rook();
+    rook->generateDisplayList();
+
     //creates terrain
     terrain = new TerrainGameObject(textureManager->getTexture("heightmap"), 50, 5);
     terrain->generateDisplayList();
@@ -116,6 +121,7 @@ void cleanUp() {
     delete terrain;
     delete chessboard;
     delete border;
+    delete rook;
 }
 
 
@@ -136,12 +142,20 @@ void display() {
     );
 
     glPushMatrix(); {
+        
+        rook->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
         terrain->draw();
         glRotatef(-90, 1, 0, 0);
         chessboard->draw();
         border->draw();
     }
     glPopMatrix();
+
+   
 
     glutSwapBuffers();
 }
