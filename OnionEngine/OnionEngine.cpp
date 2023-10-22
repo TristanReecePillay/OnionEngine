@@ -142,7 +142,7 @@ void display() {
     );
 
     glPushMatrix(); {
-        glScalef(0.8f, 1.0f, 0.8f);
+        //glScalef(0.5f, 1.0f, 0.5f);
         rook->draw();
     }
     glPopMatrix();
