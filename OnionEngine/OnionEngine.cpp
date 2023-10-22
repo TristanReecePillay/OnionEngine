@@ -48,9 +48,9 @@ Rook* rook;
 Knight* knight;
 
 glm::vec3 cameraPositions[3] = {
-    glm::vec3(30.0f, 10.0f, 0.0f),  // Camera 0 position
-    glm::vec3(20.0f, 20.0f, -10.0f),  // Camera 1 position
-    glm::vec3(50.0f, 50.0f, 50.0f) // Camera 2 position
+    glm::vec3(0.0f, 10.0f, -20.0f),  // Camera 1 position
+    glm::vec3(20.0f, 10.0f, 0.0f),  // Camera 2 position
+    glm::vec3(0.1f, 40.0f, 0.0f) // Camera 3 position
 };
 
 
@@ -148,25 +148,74 @@ void display() {
         0.0, 1.0, 0.0
     );
 
+    //Black Pieces
+    glPushMatrix(); {
+        //glScalef(0.5f, 0.5f, 0.5f);
+        glColor3f(0.2f, 0.2f, 0.2f);
+        glTranslatef(-6.0f, 1.0f, 6.0f);
+        rook->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+        //glScalef(0.5f, 0.5f, 0.5f);
+        glColor3f(0.2f, 0.2f, 0.2f);
+        glTranslatef(-6.0f, 1.0f, -8.0f);
+        rook->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+       glColor3f(0.2f, 0.2f, 0.2f);
+       glTranslatef(-6.0f, 1.0f, -6.0f);
+       glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+       knight->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+        glColor3f(0.2f, 0.2f, 0.2f);
+        glTranslatef(-6.0f, 1.0f, 4.0f);
+        glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+        knight->draw();
+    }
+    glPopMatrix();
+
+    //White pieces
     glPushMatrix(); {
         //glScalef(0.5f, 1.0f, 0.5f);
-        glTranslatef(-2.6f, 1.0f, 0.0f);
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, 6.0f);
         rook->draw();
-        glTranslatef(2.6f, 1.0f, 2.0f);
-        knight->draw();
     }
     glPopMatrix();
 
     glPushMatrix(); {
         //glScalef(0.5f, 1.0f, 0.5f);
-        glTranslatef(3.0f, 1.0f, 0.0f);
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, -8.0f);
         rook->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, -6.0f);
+        knight->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, 4.0f);
+        knight->draw();
     }
     glPopMatrix();
 
     glPushMatrix(); {
         terrain->draw();
         glRotatef(-90, 1, 0, 0);
+        glScalef(2.0f, 2.0f, 1.0f);
         chessboard->draw();
         border->draw();
     }

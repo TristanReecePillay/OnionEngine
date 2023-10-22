@@ -17,14 +17,14 @@ void Border::drawGeometry() {
     glBegin(GL_QUADS);
 
     // Top border
-    glColor3f(0.55f, 0.87f, 0.44f);
+    glColor3f(0.0f, 0.9f, 0.2f);
     glVertex3f(xOffset, yOffset, zPos);
     glVertex3f(xOffset + width, yOffset, zPos);
     glVertex3f(xOffset + width, yOffset + borderThickness, zPos);
     glVertex3f(xOffset, yOffset + borderThickness, zPos);
 
     // Bottom border
-    glColor3f(0.9f, 0.25f, 0.25f);
+    glColor3f(0.9f, 0.2f, 0.0f);
     glVertex3f(xOffset, yOffset + height - borderThickness, zPos);
     glVertex3f(xOffset + width, yOffset + height - borderThickness, zPos);
     glVertex3f(xOffset + width, yOffset + height, zPos);
@@ -33,7 +33,7 @@ void Border::drawGeometry() {
 
 
     // Left border
-    glColor3f(0.4f, 0.8f, 0.8f);
+    glColor3f(0.0f, 0.5f, 0.8f);
     glVertex3f(xOffset, yOffset + borderThickness, zPos);
     glVertex3f(xOffset + borderThickness, yOffset + borderThickness, zPos);
     glVertex3f(xOffset + borderThickness, yOffset + height - borderThickness, zPos);
@@ -41,7 +41,7 @@ void Border::drawGeometry() {
 
 
     // Right border
-    glColor3f(0.68f, 0.4f, 0.8f);
+    glColor3f(0.8f, 0.1f, 0.8f);
     glVertex3f(xOffset + width - borderThickness, yOffset + borderThickness, zPos);
     glVertex3f(xOffset + width, yOffset + borderThickness, zPos);
     glVertex3f(xOffset + width, yOffset + height - borderThickness, zPos);

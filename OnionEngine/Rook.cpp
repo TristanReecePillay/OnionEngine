@@ -14,40 +14,40 @@ void Rook::drawGeometry() {
     GLUquadricObj* quadratic;
     // topmost cylinder
     glPushMatrix();
-    glColor3f(0.5f, 0.0f, 0.8f); //purple
-    glTranslatef(0.0, 8.0, 0.0);
+    //glColor3f(0.5f, 0.0f, 0.8f); //purple
+    glTranslatef(0.0, 7.0, 0.0);
     quadratic = gluNewQuadric();
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-    gluCylinder(quadratic, 1.0f, 1.0f, 0.8f, 22, 22);
+    gluCylinder(quadratic, 0.8f, 0.8f, 0.8f, 22, 22);
     glScalef(1.0f, 1.0f, 0.001f);
-    glutSolidTorus(1.0f, 0.1f, 12, 12);
+    glutSolidTorus(0.42f, 0.42f, 12, 12);
     glPopMatrix();
     
     // top covering
     glPushMatrix();
-    glColor3f(1.0f, 0.0f, 0.0f);//red
-    glTranslatef(0.0f, 5.5f, 0.0f);
+    //glColor3f(1.0f, 0.0f, 0.0f);//red
+    glTranslatef(0.0f, 4.5f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glScalef(1.0, 1.0, 0.1);
-    glutSolidTorus(0.5f, 1.0f, 12, 12);
+    glutSolidTorus(0.4f, 0.5f, 32, 32);
     glPopMatrix();
 
     // middle cylinder
     glPushMatrix();
-    glColor3f(0.2f, 1.0f, 0.2f);//green
-    glTranslatef(0.0f, 5.0f, 0.0f);
+    //glColor3f(0.2f, 1.0f, 0.2f);//green
+    glTranslatef(0.0f, 3.5f, 0.0f);
     quadratic = gluNewQuadric();
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    gluCylinder(quadratic, 0.7f, 0.2f, 3.0f, 12, 12);
+    gluCylinder(quadratic, 0.7f, 0.1f, 3.0f, 12, 12);
     glPopMatrix();
 
     // inverted cylinder
     glPushMatrix();
-    glColor3f(0.9f, 0.2f, 0.5f);//pink
-    glTranslatef(0.0, 5.5, 0.0);
+    //glColor3f(0.9f, 0.2f, 0.5f);//pink
+    glTranslatef(0.0f, 4.5f, 0.0f);
     quadratic = gluNewQuadric();
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-    gluCylinder(quadratic, 1.5f, 1.5f, 1.0f, 12, 12);
+    gluCylinder(quadratic, 0.9f, 0.9f, 1.0f, 12, 12);
     glPopMatrix();
 
     //// middle covering

@@ -5,6 +5,6 @@
 class Knight: public GameObject
 {
 private:
-	void drawGeometry() override;
+	void drawGeometry();
 };
 
