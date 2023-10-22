@@ -45,14 +45,18 @@ void TerrainGameObject::drawGeometry() {
 
 			glBegin(GL_QUADS); {
 				glColor3f(p1.r, p1.r, p1.r);
+				glTexCoord2f(0, 0);
 				glVertex3f(vx1, vy1, vz1);
 
 				glColor3f(p2.r, p2.r, p2.r);
+				glTexCoord2f(1, 0);
 				glVertex3f(vx2, vy2, vz2);
 
+				glTexCoord2f(1, 1);
 				glColor3f(p3.r, p3.r, p3.r);
 				glVertex3f(vx3, vy3, vz3);
 
+				glTexCoord2f(0, 1);
 				glColor3f(p4.r, p4.r, p4.r);
 				glVertex3f(vx4, vy4, vz4);
 			}

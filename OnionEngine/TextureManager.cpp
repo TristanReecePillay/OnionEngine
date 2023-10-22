@@ -5,9 +5,11 @@
 using namespace std;
 
 TextureManager::TextureManager() {
-	textures.insert({ "brick", new Texture("../Textures/bricks.png") });
-	textures.insert({ "dirt", new Texture("../Textures/dirt.png") });
+	textures.insert({ "darkMarble", new Texture("../Textures/dark_marble.jpg") });
+	textures.insert({ "marble", new Texture("../Textures/WhiteMarble.jpg") });
 	textures.insert({ "gold", new Texture("../Textures/gold_block.png") });
+	textures.insert({ "pink", new Texture("../Textures/pink_block.png") });
+	textures.insert({ "grass", new Texture("../Textures/seamless-grass-texture.jpg") });
 	textures.insert({ "heightmap", new Texture("../Textures/HeightMap4.jpg", 0) });
 }
 

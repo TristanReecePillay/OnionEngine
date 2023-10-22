@@ -150,7 +150,8 @@ void display() {
 
     //Black Pieces
     glPushMatrix(); {
-        //glScalef(0.5f, 0.5f, 0.5f);
+
+        textureManager->useTexture("darkMarble");
         glColor3f(0.2f, 0.2f, 0.2f);
         glTranslatef(-6.0f, 1.0f, 6.0f);
         rook->draw();
@@ -158,7 +159,6 @@ void display() {
     glPopMatrix();
 
     glPushMatrix(); {
-        //glScalef(0.5f, 0.5f, 0.5f);
         glColor3f(0.2f, 0.2f, 0.2f);
         glTranslatef(-6.0f, 1.0f, -8.0f);
         rook->draw();
@@ -183,7 +183,7 @@ void display() {
 
     //White pieces
     glPushMatrix(); {
-        //glScalef(0.5f, 1.0f, 0.5f);
+        textureManager->useTexture("marble");
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(8.0f, 1.0f, 6.0f);
         rook->draw();
@@ -191,7 +191,6 @@ void display() {
     glPopMatrix();
 
     glPushMatrix(); {
-        //glScalef(0.5f, 1.0f, 0.5f);
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(8.0f, 1.0f, -8.0f);
         rook->draw();
@@ -212,8 +211,18 @@ void display() {
     }
     glPopMatrix();
 
+  
+    textureManager->useTexture("grass");
+
     glPushMatrix(); {
+       
         terrain->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+
+        textureManager->useTexture("pink");
         glRotatef(-90, 1, 0, 0);
         glScalef(2.0f, 2.0f, 1.0f);
         chessboard->draw();
@@ -221,7 +230,7 @@ void display() {
     }
     glPopMatrix();
 
-   
+
 
     glutSwapBuffers();
 }
