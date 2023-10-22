@@ -4,7 +4,9 @@
 
 class Rook: public GameObject
 {
+
   private:
 	 void drawGeometry() override;
+	 
 };
 

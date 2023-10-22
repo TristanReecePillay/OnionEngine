@@ -6,8 +6,8 @@
 void Rook::drawGeometry() {
 
     glMatrixMode(GL_MODELVIEW);
-    //glPushMatrix();
-   //glTranslatef(0.0f, 0.0f, 0.0f);
+    glPushMatrix();
+    glTranslatef(0.0f, 0.0f, 0.0f);
    // glScalef(0.2f, 0.2f, 0.2f);
 
 

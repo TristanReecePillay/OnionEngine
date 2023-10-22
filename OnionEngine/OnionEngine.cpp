@@ -1,5 +1,6 @@
 // SquareAnim.cpp : This file contains the 'main' function. Program execution begins and ends there.
 #include <iostream>
+#include <ctime>
 #include <fstream>
 #include <sstream>
 #include <GL/glew.h>
@@ -14,6 +15,7 @@
 #include "Chessboard.h"
 #include "Border.h"
 #include "Rook.h"
+#include "Knight.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC
@@ -29,7 +31,6 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-
 void init();
 void display();
 void timer(int);
@@ -44,6 +45,7 @@ TerrainGameObject* terrain;
 Chessboard* chessboard;
 Border* border;
 Rook* rook;
+Knight* knight;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(30.0f, 10.0f, 0.0f),  // Camera 0 position
@@ -51,8 +53,9 @@ glm::vec3 cameraPositions[3] = {
     glm::vec3(50.0f, 50.0f, 50.0f) // Camera 2 position
 };
 
+
 int currentCamera = 0; // Index of the currently active camera
- 
+
 
 int main(int argc, char* argv[]) {
 
@@ -99,7 +102,7 @@ void initGameObjects() {
     textureManager = new TextureManager();
 
     gameObject = new GameObject();
-    gameObject->setPosition(1, 0, 0);
+    gameObject->setPosition(0, 0, 0);
 
     chessboard = new Chessboard();
     chessboard->generateDisplayList();
@@ -109,6 +112,9 @@ void initGameObjects() {
 
     rook = new Rook();
     rook->generateDisplayList();
+
+    knight = new Knight();
+    knight->generateDisplayList();
 
     //creates terrain
     terrain = new TerrainGameObject(textureManager->getTexture("heightmap"), 50, 5);
@@ -122,6 +128,7 @@ void cleanUp() {
     delete chessboard;
     delete border;
     delete rook;
+    delete knight;
 }
 
 
@@ -143,6 +150,16 @@ void display() {
 
     glPushMatrix(); {
         //glScalef(0.5f, 1.0f, 0.5f);
+        glTranslatef(-2.6f, 1.0f, 0.0f);
+        rook->draw();
+        glTranslatef(2.6f, 1.0f, 2.0f);
+        knight->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+        //glScalef(0.5f, 1.0f, 0.5f);
+        glTranslatef(3.0f, 1.0f, 0.0f);
         rook->draw();
     }
     glPopMatrix();
@@ -166,22 +183,23 @@ void timer(int) {
 }
 
 void keyCallback(unsigned char key, int x, int y) {
-    switch (key) {
-    case '1':
-        currentCamera = 0; // Switch to camera 0
-        break;
-    case '2':
-        currentCamera = 1; // Switch to camera 1
-        break;
-    case '3':
-        currentCamera = 2; // Switch to camera 2
-        break;
-    case 27: // ESC key
-        exit(0); // Exit the program
-        break;
+
+        switch (key) {
+        case '1':
+            currentCamera = 0; // Switch to camera 0
+            break;
+        case '2':
+            currentCamera = 1; // Switch to camera 1
+            break;
+        case '3':
+            currentCamera = 2; // Switch to camera 2
+            break;
+        case 27: // ESC key
+            exit(0); // Exit the program
+            break;
+        }
+        glutPostRedisplay();
     }
-    glutPostRedisplay();
-}
 
 void specialKeyCallback(int key, int x, int y) {
     // Handle arrow key presses to navigate between cameras

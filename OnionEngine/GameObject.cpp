@@ -37,7 +37,7 @@ void GameObject::draw() {
 
 void GameObject::drawGeometry() {
     //glRotatef(45, 1, 1, 0); // to rotate the cube
-    glColor3f(1, 1, 1);
+    glColor3f(1, 0, 0);
     glutSolidCube(1.0);
 }
 
