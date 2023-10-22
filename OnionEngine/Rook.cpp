@@ -5,12 +5,6 @@
 
 void Rook::drawGeometry() {
 
-    glEnable(GL_TEXTURE_2D);
-
-    // Bind the texture for the topmost cylinder
-    //glBindTexture(GL_TEXTURE_2D, textureManager->getTexture("gold")->getID());
-
-
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glTranslatef(0.0f, 0.0f, 0.0f);
