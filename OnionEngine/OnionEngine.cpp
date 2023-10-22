@@ -16,6 +16,7 @@
 #include "Border.h"
 #include "Rook.h"
 #include "Knight.h"
+#include "Pawn.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC
@@ -47,6 +48,7 @@ Chessboard* chessboard;
 Border* border;
 Rook* rook;
 Knight* knight;
+Pawn* pawn;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(0.0f, 10.0f, -20.0f),  // Camera 1 position
@@ -160,6 +162,9 @@ void initGameObjects() {
     knight = new Knight();
     knight->generateDisplayList();
 
+    pawn = new Pawn();
+    pawn->generateDisplayList();
+
     // Initialize positions for the initial chess pieces
     originalRookPositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));
     originalKnightPositions.push_back(glm::vec3(-6.0f, 1.0f, -6.0f));
@@ -180,6 +185,7 @@ void cleanUp() {
     delete border;
     delete rook;
     delete knight;
+    delete pawn;
 }
 
 
