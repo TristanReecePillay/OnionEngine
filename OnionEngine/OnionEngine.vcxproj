@@ -136,8 +136,11 @@
     <ClCompile Include="Border.cpp" />
     <ClCompile Include="Chessboard.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="King.cpp" />
     <ClCompile Include="Knight.cpp" />
+    <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="Queen.cpp" />
     <ClCompile Include="Rook.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -151,8 +154,11 @@
     <ClInclude Include="Border.h" />
     <ClInclude Include="Chessboard.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
+    <ClInclude Include="Pawn.h" />
     <ClInclude Include="Pixel.h" />
+    <ClInclude Include="Queen.h" />
     <ClInclude Include="Rook.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Shader.h" />
