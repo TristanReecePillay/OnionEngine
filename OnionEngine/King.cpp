@@ -49,7 +49,7 @@ void King::drawGeometry()
     glTranslatef(0.0f, 3.5f, 0.0f);
     quadratic = gluNewQuadric();
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    gluCylinder(quadratic, 0.7f, 0.1f, 3.0f, 12, 12);
+    gluCylinder(quadratic, 0.7f, 0.1f, 3.0f, 15, 12);
     glPopMatrix();
 
     // Base

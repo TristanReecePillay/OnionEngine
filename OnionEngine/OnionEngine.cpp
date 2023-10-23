@@ -405,6 +405,24 @@ void display() {
         }
         glPopMatrix();
     }
+    //white King
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, 0.0f);
+        king->draw();
+    }
+    glPopMatrix();
+
+    //white Queen
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(0.0f, 0.0f, 0.0f);
+        queen->draw();
+    }
+    glPopMatrix();
+
+
+
 
   //TERRAIN 
     textureManager->useTexture("grass");
