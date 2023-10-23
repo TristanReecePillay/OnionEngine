@@ -424,11 +424,11 @@ void display() {
     glPopMatrix();
 
     //BORDER
-    textureManager->useTexture("pink"); 
+    textureManager->useTexture("sand"); 
     glPushMatrix(); {
-        glTranslatef(-6.0f, 2.9f, -8.0f);
+        glTranslatef(1.0f, 0.0f, -1.0f);
         //glRotatef(-90, 1, 0, 0); 
-        glScalef(2.0f, 2.0f, 2.0f);
+        //glScalef(2.0f, 2.0f, 2.0f);
         border->draw(); 
     }
     glPopMatrix();
