@@ -10,7 +10,7 @@ void Bishop::drawGeometry()
     glPushMatrix();
     glScalef(0.5f, 0.5f, 1.0f); // Adjust the size as needed
 
-    // Draw the pawn as a simple cube (you can modify this)
+    // Draw the pawn as a simple cube (you can modify this) please
     glutSolidCube(1.0f);
 
     glPopMatrix();
