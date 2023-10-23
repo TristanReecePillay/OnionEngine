@@ -37,12 +37,14 @@ void Chessboard::drawGeometry() {
             glBegin(GL_QUADS);
 
             // Define vertices and colors for the top face
-            glTexCoord3f(0, 0, 0);
+            glTexCoord2f(1, 0);
             glColor3f(squareColor.r, squareColor.g, squareColor.b);
             glVertex3f(xPos, yPos, zPos);
-            glTexCoord3f(1, 1, 0);
+            glTexCoord2f(1, 1);
             glVertex3f(xPos + cellSize, yPos, zPos);
+            glTexCoord2f(0, 0);
             glVertex3f(xPos + cellSize, yPos + cellSize, zPos);
+            glTexCoord2f(0, 1);
             glVertex3f(xPos, yPos + cellSize, zPos);
 
             // Define vertices and colors for the bottom face (same as top face but lowered)
