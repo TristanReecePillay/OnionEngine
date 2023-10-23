@@ -65,7 +65,7 @@ void Pawn::drawGeometry()
 
     //sphere
     glTranslatef(0.0f, 6.5f, 0.0f);
-    glColor3f(1.0, 1.0, 1.0); // Set color to white (for proper texture rendering)
+    //glColor3f(1.0, 1.0, 1.0); // Set color to white (for proper texture rendering)
     const int stacks = 20;
     const int slices = 20;
     const float radius = 0.5f;
@@ -91,8 +91,8 @@ void Pawn::drawGeometry()
         }
         glEnd();
     }
-    glDisable(GL_TEXTURE_2D); 
-    glDisable(GL_TEXTURE_GEN_S); 
-    glDisable(GL_TEXTURE_GEN_T); 
+    glDisable(GL_TEXTURE_2D);  
+    glDisable(GL_TEXTURE_GEN_S);  
+    glDisable(GL_TEXTURE_GEN_T);  
     //glPopMatrix();
 }

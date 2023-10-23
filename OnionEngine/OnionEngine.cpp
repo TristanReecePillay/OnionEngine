@@ -71,11 +71,13 @@ glm::vec3 targetBlackRookOnePosition;
 glm::vec3 targetBlackRookTwoPosition;
 glm::vec3 targetBlackKnightOnePosition;
 glm::vec3 targetBlackKnightTwoPosition;
+glm::vec3 targetBlackPawnPosition;
 
 glm::vec3 targetWhiteRookOnePosition;
 glm::vec3 targetWhiteRookTwoPosition;
 glm::vec3 targetWhiteKnightOnePosition;
 glm::vec3 targetWhiteKnightTwoPosition;
+glm::vec3 targetWhitePawnPosition;
 
 #include <vector>
 
@@ -84,21 +86,26 @@ std::vector<glm::vec3> originalBlackRookOnePositions;
 std::vector<glm::vec3> originalBlackKnightOnePositions;
 std::vector<glm::vec3> originalBlackRookTwoPositions;
 std::vector<glm::vec3> originalBlackKnightTwoPositions;
+std::vector<glm::vec3> originalBlackPawnPositions;
 
 std::vector<glm::vec3> currentBlackRookOnePositions; 
 std::vector<glm::vec3> currentBlackKnightOnePositions;
 std::vector<glm::vec3> currentBlackRookTwoPositions;
 std::vector<glm::vec3> currentBlackKnightTwoPositions;
+std::vector<glm::vec3> currentBlackPawnPositions;
+
 
 std::vector<glm::vec3> originalWhiteRookOnePositions;
 std::vector<glm::vec3> originalWhiteRookTwoPositions;
 std::vector<glm::vec3> originalWhiteKnightOnePositions;
 std::vector<glm::vec3> originalWhiteKnightTwoPositions;
+std::vector<glm::vec3> originalWhitePawnPositions;
 
 std::vector<glm::vec3> currentWhiteRookOnePositions;
 std::vector<glm::vec3> currentWhiteRookTwoPositions;
 std::vector<glm::vec3> currentWhiteKnightOnePositions;
 std::vector<glm::vec3> currentWhiteKnightTwoPositions;
+std::vector<glm::vec3> currentWhitePawnPositions;
 
 
 void interpolatePiecePositions() {
@@ -124,6 +131,11 @@ void interpolatePiecePositions() {
                 currentBlackKnightTwoPositions[i] = glm::mix(originalBlackKnightTwoPositions[i], targetBlackKnightTwoPosition, t);
             }
 
+            for (size_t i = 0; i < originalBlackPawnPositions.size(); i++) {
+                currentBlackPawnPositions[i] = glm::mix(originalBlackPawnPositions[i], targetBlackPawnPosition, t);
+            }
+
+
 
             for (size_t i = 0; i < originalWhiteRookOnePositions.size(); i++) {
                 currentWhiteRookOnePositions[i] = glm::mix(originalWhiteRookOnePositions[i], targetWhiteRookOnePosition, t);
@@ -139,6 +151,9 @@ void interpolatePiecePositions() {
 
             for (size_t i = 0; i < originalWhiteKnightTwoPositions.size(); i++) {
                 currentWhiteKnightTwoPositions[i] = glm::mix(originalWhiteKnightTwoPositions[i], targetWhiteKnightTwoPosition, t);
+            }
+            for (size_t i = 0; i < originalWhitePawnPositions.size(); i++) {
+                currentWhitePawnPositions[i] = glm::mix(originalWhitePawnPositions[i], targetWhitePawnPosition, t);
             }
 
         }
@@ -162,6 +177,9 @@ void resetPiecePositions() {
     for (size_t i = 0; i < originalBlackKnightTwoPositions.size(); i++) {
         currentBlackKnightTwoPositions[i] = originalBlackKnightTwoPositions[i];
     }
+    for (size_t i = 0; i < originalBlackPawnPositions.size(); i++) {
+        currentBlackPawnPositions[i] = originalBlackPawnPositions[i];
+    }
 
     for (size_t i = 0; i < originalWhiteRookOnePositions.size(); i++) {
         currentWhiteRookOnePositions[i] = originalWhiteRookOnePositions[i];
@@ -174,6 +192,9 @@ void resetPiecePositions() {
     }
     for (size_t i = 0; i < originalWhiteKnightTwoPositions.size(); i++) {
         currentWhiteKnightTwoPositions[i] = originalWhiteKnightTwoPositions[i];
+    }
+    for (size_t i = 0; i < originalWhitePawnPositions.size(); i++) {
+        currentWhitePawnPositions[i] = originalWhitePawnPositions[i];
     }
 }
 
@@ -253,21 +274,25 @@ void initGameObjects() {
     originalBlackRookTwoPositions.push_back(glm::vec3(-6.0f, 1.0f, -8.0f));
     originalBlackKnightOnePositions.push_back(glm::vec3(-6.0f, 1.0f, -6.0f)); //refs
     originalBlackKnightTwoPositions.push_back(glm::vec3(-6.0f, 1.0f, 4.0f));
+    originalBlackPawnPositions.push_back(glm::vec3(-4.0f, 1.0f, 6.0f));
 
     originalWhiteRookOnePositions.push_back(glm::vec3(8.0f, 1.0f, 6.0f));
     originalWhiteRookTwoPositions.push_back(glm::vec3(8.0f, 1.0f, -8.0f));
     originalWhiteKnightOnePositions.push_back(glm::vec3(8.0f, 1.0f, -6.0f));
-    originalWhiteKnightTwoPositions.push_back(glm::vec3(8.0f, 1.0f, 4.0f)); 
+    originalWhiteKnightTwoPositions.push_back(glm::vec3(8.0f, 1.0f, 4.0f));
+    originalWhitePawnPositions.push_back(glm::vec3(6.0f, 1.0f, 6.0f));
 
     currentBlackRookOnePositions = originalBlackRookOnePositions;
     currentBlackRookTwoPositions = originalBlackRookTwoPositions;
     currentBlackKnightOnePositions = originalBlackKnightOnePositions;
     currentBlackKnightTwoPositions = originalBlackKnightTwoPositions;
+    currentBlackPawnPositions = originalBlackPawnPositions;
 
     currentWhiteRookOnePositions = originalWhiteRookOnePositions;
     currentWhiteRookTwoPositions = originalWhiteRookTwoPositions;
     currentWhiteKnightOnePositions = originalWhiteKnightOnePositions;
     currentWhiteKnightTwoPositions = originalWhiteKnightTwoPositions;
+    currentWhitePawnPositions = originalWhitePawnPositions;
 
     //creates terrain
     terrain = new TerrainGameObject(textureManager->getTexture("heightmap"), 50, 5);
@@ -308,9 +333,8 @@ void display() {
         0.0, 1.0, 0.0
     );
 
-
-   textureManager->useTexture("darkMarble");
     //BLACK PIECES
+   textureManager->useTexture("darkMarble");
     for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
         //Black Rook 1
         glPushMatrix(); {
@@ -322,6 +346,7 @@ void display() {
     }
 
     for (size_t i = 0; i < originalBlackRookTwoPositions.size(); i++) {
+        textureManager->useTexture("darkMarble");
         //Black Rook 2
         glPushMatrix(); {
             glColor3f(0.5f, 0.5f, 0.5f);
@@ -335,6 +360,7 @@ void display() {
 
     for (size_t i = 0; i < originalBlackKnightOnePositions.size(); i++) {
         //Black Knight 1
+        textureManager->useTexture("darkMarble");
         glPushMatrix(); {//draw
             glColor3f(0.5f, 0.5f, 0.5f);
             glTranslatef(currentBlackKnightOnePositions[i].x, currentBlackKnightOnePositions[i].y, currentBlackKnightOnePositions[i].z); //draw end
@@ -345,6 +371,7 @@ void display() {
     }
 
     for (size_t i = 0; i < originalBlackKnightTwoPositions.size(); i++) {
+        textureManager->useTexture("darkMarble");
         //Black Knight 2
         glPushMatrix(); {
             glColor3f(0.5f, 0.5f, 0.5f);
@@ -364,7 +391,7 @@ void display() {
     glPopMatrix(); 
 
 
-    //black Bishop
+    //Black Bishop
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(-6.0f, 1.0f, 2.0f);
@@ -372,7 +399,7 @@ void display() {
     }
     glPopMatrix();
 
-    //black Bishop 2
+    //Black Bishop 2
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(-6.0f, 1.0f, -4.0f);
@@ -380,11 +407,86 @@ void display() {
     }
     glPopMatrix();
 
-    //black Queen
+    //Black Queen
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(-6.0f, 1.0f, -2.0f);
         queen->draw();
+    }
+    glPopMatrix();
+
+    //Black Pawn 1
+    
+    for (size_t i = 0; i < originalBlackPawnPositions.size(); i++) {
+        textureManager->useTexture("darkMarble");
+        glPushMatrix(); {
+            glColor3f(1.0f, 1.0f, 1.0f);
+            glTranslatef(currentBlackPawnPositions[i].x, currentBlackPawnPositions[i].y, currentBlackPawnPositions[i].z);
+            pawn->draw();
+        }
+        glPopMatrix();
+    }
+
+    //Black Pawn 2
+    textureManager->useTexture("darkMarble");
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-4.0f, 1.0f, 4.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
+
+    //Black Pawn 3
+    textureManager->useTexture("darkMarble");
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-4.0f, 1.0f, 2.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
+
+    //Black Pawn 4
+    textureManager->useTexture("darkMarble");
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-4.0f, 1.0f, 0.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
+
+    //Black Pawn 5
+    textureManager->useTexture("darkMarble");
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-4.0f, 1.0f, -2.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
+
+    //Black Pawn 6
+    textureManager->useTexture("darkMarble");
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-4.0f, 1.0f, -4.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
+
+    //Black Pawn 7
+    textureManager->useTexture("darkMarble");
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-4.0f, 1.0f, -6.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
+
+    //Black Pawn 8
+    textureManager->useTexture("darkMarble");
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-4.0f, 1.0f, -8.0f);
+        pawn->draw();
     }
     glPopMatrix();
 
@@ -393,7 +495,6 @@ void display() {
     for (size_t i = 0; i < originalWhiteRookOnePositions.size(); i++) {
         //White Rook 1
         glPushMatrix(); {
-           
             glColor3f(1.0f, 1.0f, 1.0f);
             glTranslatef(currentWhiteRookOnePositions[i].x, currentWhiteRookOnePositions[i].y, currentWhiteRookOnePositions[i].z);
             rook->draw();
@@ -401,7 +502,7 @@ void display() {
         glPopMatrix();
     }
     
-
+    textureManager->useTexture("marble");
     for (size_t i = 0; i < originalWhiteRookTwoPositions.size(); i++) {
         //White Rook 2
         glPushMatrix(); {
@@ -412,6 +513,7 @@ void display() {
         glPopMatrix();
     }
     
+    textureManager->useTexture("marble");
     for (size_t i = 0; i < originalWhiteKnightOnePositions.size(); i++) {
         //White Knight 1
         glPushMatrix(); {
@@ -422,6 +524,7 @@ void display() {
         glPopMatrix();
     }
 
+    textureManager->useTexture("marble");
     for (size_t i = 0; i < originalWhiteKnightTwoPositions.size(); i++) {
         //White Knight 2
         glPushMatrix(); {
@@ -432,29 +535,91 @@ void display() {
         glPopMatrix();
     }
 
-    //White Pawn 1
-    glPushMatrix(); {
-        glColor3f(1.0f, 1.0f, 1.0f); 
-        glTranslatef(6.0f, 1.0f, 6.0f);
-        pawn->draw();
+    textureManager->useTexture("marble");
+    for (size_t i = 0; i < originalWhitePawnPositions.size(); i++) {
+        //White Pawn 1
+        glPushMatrix(); {
+            glColor3f(1.0f, 1.0f, 1.0f);
+            glTranslatef(currentWhitePawnPositions[i].x, currentWhitePawnPositions[i].y, currentWhitePawnPositions[i].z);
+            pawn->draw();
+        }
+        glPopMatrix();
     }
-    glPopMatrix();
 
     //White Pawn 2
+    textureManager->useTexture("marble");
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(6.0f, 1.0f, 4.0f);
         pawn->draw();
     }
-    //white King
+    glPopMatrix(); 
+
+    //White Pawn 3
+    textureManager->useTexture("marble");
+    glPushMatrix(); { 
+        glColor3f(1.0f, 1.0f, 1.0f); 
+        glTranslatef(6.0f, 1.0f, 2.0f); 
+        pawn->draw(); 
+    }
+    glPopMatrix(); 
+
+    //White Pawn 4
+    textureManager->useTexture("marble");
+    glPushMatrix(); { 
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(6.0f, 1.0f, 0.0f);
+        pawn->draw(); 
+    }
+    glPopMatrix(); 
+
+    //White Pawn 5
+    textureManager->useTexture("marble"); 
+    glPushMatrix(); { 
+        glColor3f(1.0f, 1.0f, 1.0f); 
+        glTranslatef(6.0f, 1.0f, -2.0f); 
+        pawn->draw(); 
+    }
+    glPopMatrix();   
+
+    //White Pawn 6
+    textureManager->useTexture("marble");
+    glPushMatrix(); { 
+        glColor3f(1.0f, 1.0f, 1.0f); 
+        glTranslatef(6.0f, 1.0f, -4.0f);
+        pawn->draw(); 
+    }
+    glPopMatrix();
+
+    //White Pawn 7
+    textureManager->useTexture("marble");
+    glPushMatrix(); { 
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(6.0f, 1.0f, -6.0f);
+        pawn->draw(); 
+    }
+    glPopMatrix();
+
+    //White Pawn 8
+    textureManager->useTexture("marble");
+    glPushMatrix(); { 
+        glColor3f(1.0f, 1.0f, 1.0f); 
+        glTranslatef(6.0f, 1.0f, -8.0f);
+        pawn->draw(); 
+    }
+    glPopMatrix(); 
+     
+    textureManager->useTexture("marble");
+    //White King
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
-        glTranslatef(8.0f, 1.0f, 0.0f);
+        glTranslatef(8.0f, 1.0f, -0.0f);
         king->draw();
     }
     glPopMatrix();
 
-    //white Bishop
+    textureManager->useTexture("marble");
+    //White Bishop 1
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(8.0f, 1.0f, 2.0f);
@@ -462,7 +627,8 @@ void display() {
     }
     glPopMatrix();
 
-    //white Bishop
+    textureManager->useTexture("marble");
+    //White Bishop 2
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(8.0f, 1.0f, -4.0f);
@@ -470,14 +636,14 @@ void display() {
     }
     glPopMatrix();
 
-    //white Queen
+    textureManager->useTexture("marble");
+    //White Queen
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(8.0f, 1.0f, -2.0f);
         queen->draw();
     }
     glPopMatrix();
-
 
 
 
@@ -508,8 +674,9 @@ void display() {
     }
     glPopMatrix();
 
-
     glutSwapBuffers();
+
+
 }
 
 void timer(int) {
@@ -546,10 +713,12 @@ void keyCallback(unsigned char key, int x, int y) {
                 targetBlackRookTwoPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
                 targetBlackKnightOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5); 
                 targetBlackKnightTwoPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
+                targetBlackPawnPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
                 targetWhiteRookOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
                 targetWhiteRookTwoPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
                 targetWhiteKnightOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
                 targetWhiteKnightTwoPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
+                targetWhitePawnPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
                 animationStartTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
                 isAnimating = true;
             }
@@ -598,6 +767,8 @@ void updateAnimation() {
             targetWhiteRookTwoPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
             targetWhiteKnightOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
             targetWhiteKnightTwoPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
+            targetBlackPawnPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
+            targetWhitePawnPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
             animationStartTime = currentTime; // Reset animation start time
         }
     }

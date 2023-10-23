@@ -18,6 +18,7 @@ void Knight::drawGeometry() {
     glTranslatef(0.0, 6.0, 0.0);
     quadratic = gluNewQuadric();
     glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+    gluQuadricTexture(quadratic, GL_TRUE);  
     gluCylinder(quadratic, 0.3f, 0.1f, 1.5f, 22, 22);
     glScalef(1.0f, 1.0f, 0.01f);
     glutSolidTorus(0.27f, 0.15f, 12, 12);
@@ -29,6 +30,7 @@ void Knight::drawGeometry() {
     glTranslatef(0.0f, 3.5f, 0.0f);
     quadratic = gluNewQuadric();
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    gluQuadricTexture(quadratic, GL_TRUE); 
     gluCylinder(quadratic, 0.6f, 0.3f, 3.0f, 12, 12);
     glPopMatrix();
 
@@ -47,6 +49,7 @@ void Knight::drawGeometry() {
     glTranslatef(0.0f, 4.5f, 0.0f);
     quadratic = gluNewQuadric();
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    gluQuadricTexture(quadratic, GL_TRUE);  
     gluCylinder(quadratic, 0.9f, 0.9f, 1.0f, 12, 12);
     glPopMatrix();
 
@@ -58,5 +61,7 @@ void Knight::drawGeometry() {
         glScalef(1.0f, 1.0f, 0.3f);
         glutSolidTorus(0.6f, 0.3f, 32, 32);
         glPopMatrix();
+
+        glDisable(GL_TEXTURE_2D); 
 
 }
