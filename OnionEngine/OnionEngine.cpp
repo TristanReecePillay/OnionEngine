@@ -57,8 +57,8 @@ Queen* queen;
 Bishop* bishop;
 
 glm::vec3 cameraPositions[3] = {
-    glm::vec3(0.0f, 10.0f, -20.0f),  // Camera 1 position
-    glm::vec3(20.0f, 10.0f, 0.0f),  // Camera 2 position
+    glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
+    glm::vec3(20.0f, 20.0f, 0.0f),  // Camera 2 position
     glm::vec3(0.1f, 40.0f, 0.0f) // Camera 3 position
 };
 
@@ -308,6 +308,7 @@ void display() {
         0.0, 1.0, 0.0
     );
 
+
    textureManager->useTexture("darkMarble");
     //BLACK PIECES
     for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
@@ -361,6 +362,31 @@ void display() {
         king->draw();
     }
     glPopMatrix(); 
+
+
+    //black Bishop
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-6.0f, 1.0f, 2.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
+    //black Bishop 2
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-6.0f, 1.0f, -4.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
+    //black Queen
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-6.0f, 1.0f, -2.0f);
+        queen->draw();
+    }
+    glPopMatrix();
 
     //WHITE PIECES
     textureManager->useTexture("marble"); 
@@ -416,11 +442,44 @@ void display() {
 
     //White Pawn 2
     glPushMatrix(); {
-        glColor3f(1.0f, 1.0f, 1.0f); 
+        glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(6.0f, 1.0f, 4.0f);
-        pawn->draw(); 
+        pawn->draw();
+    }
+    //white King
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, 0.0f);
+        king->draw();
     }
     glPopMatrix();
+
+    //white Bishop
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, 2.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
+    //white Bishop
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, -4.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
+    //white Queen
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, -2.0f);
+        queen->draw();
+    }
+    glPopMatrix();
+
+
+
 
   //TERRAIN 
     textureManager->useTexture("grass");
