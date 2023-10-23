@@ -177,8 +177,8 @@ void initGameObjects() {
     queen = new Queen();
     queen->generateDisplayList();
 
-    bishop = new Bishop();
-    bishop->generateDisplayList();
+    //bishop = new Bishop();
+    //bishop->generateDisplayList();
 
     // Initialize positions for the initial chess pieces
     originalRookPositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));
