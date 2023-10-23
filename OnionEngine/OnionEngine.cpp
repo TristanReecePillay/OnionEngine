@@ -67,16 +67,21 @@ int currentCamera = 0; // Index of the currently active camera
 bool isAnimating = false;
 float animationDuration = 2.0f; // Animation duration in seconds
 float animationStartTime = 0.0f;
-glm::vec3 targetRookPosition;
-glm::vec3 targetKnightPosition;
+glm::vec3 targetBlackRookOnePosition;
+glm::vec3 targetBlackKnightOnePosition;
 
 #include <vector>
 
 // Store the original and current positions of the chess pieces
-std::vector<glm::vec3> originalRookPositions; 
-std::vector<glm::vec3> originalKnightPositions; 
-std::vector<glm::vec3> currentRookPositions; 
-std::vector<glm::vec3> currentKnightPositions; 
+std::vector<glm::vec3> originalBlackRookOnePositions; 
+std::vector<glm::vec3> originalBlackKnightOnePositions;
+std::vector<glm::vec3> originalBlackRookTwoPositions;
+std::vector<glm::vec3> originalBlackKnightTwoPositions;
+
+std::vector<glm::vec3> currentBlackRookOnePositions; 
+std::vector<glm::vec3> currentBlackKnightOnePositions;
+std::vector<glm::vec3> currentBlackRookTwoPositions;
+std::vector<glm::vec3> currentBlackKnightTwoPositions;
 
 void interpolatePiecePositions() {
     if (isAnimating) {
@@ -85,12 +90,12 @@ void interpolatePiecePositions() {
         if (elapsedTime < animationDuration) {
             float t = elapsedTime / animationDuration;
             // Interpolate the position of the rook
-            for (size_t i = 0; i < originalRookPositions.size(); i++) {
-                currentRookPositions[i] = glm::mix(originalRookPositions[i], targetRookPosition, t);
+            for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
+                currentBlackRookOnePositions[i] = glm::mix(originalBlackRookOnePositions[i], targetBlackRookOnePosition, t);
             }
 
-            for (size_t i = 0; i < originalKnightPositions.size(); i++) {
-                currentKnightPositions[i] = glm::mix(originalKnightPositions[i], targetKnightPosition, t);
+            for (size_t i = 0; i < originalBlackKnightOnePositions.size(); i++) {
+                currentBlackKnightOnePositions[i] = glm::mix(originalBlackKnightOnePositions[i], targetBlackKnightOnePosition, t);
             }
         }
         else {
@@ -101,11 +106,11 @@ void interpolatePiecePositions() {
 
 void resetPiecePositions() {
     isAnimating = false;
-    for (size_t i = 0; i < originalRookPositions.size(); i++) {
-        currentRookPositions[i] = originalRookPositions[i];
+    for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
+        currentBlackRookOnePositions[i] = originalBlackRookOnePositions[i];
     }
-    for (size_t i = 0; i < originalKnightPositions.size(); i++) {
-        currentKnightPositions[i] = originalKnightPositions[i];
+    for (size_t i = 0; i < originalBlackKnightOnePositions.size(); i++) {
+        currentBlackKnightOnePositions[i] = originalBlackKnightOnePositions[i];
     }
 }
 
@@ -177,15 +182,15 @@ void initGameObjects() {
     queen = new Queen();
     queen->generateDisplayList();
 
-    //bishop = new Bishop();
-    //bishop->generateDisplayList();
+    bishop = new Bishop();
+    bishop->generateDisplayList();
 
     // Initialize positions for the initial chess pieces
-    originalRookPositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));
-    originalKnightPositions.push_back(glm::vec3(-6.0f, 1.0f, -6.0f));
+    originalBlackRookOnePositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));
+    originalBlackKnightOnePositions.push_back(glm::vec3(-6.0f, 1.0f, -6.0f));
 
-    currentRookPositions = originalRookPositions;
-    currentKnightPositions = originalKnightPositions;
+    currentBlackRookOnePositions = originalBlackRookOnePositions;
+    currentBlackKnightOnePositions = originalBlackKnightOnePositions;
 
     //creates terrain
     terrain = new TerrainGameObject(textureManager->getTexture("heightmap"), 50, 5);
@@ -225,20 +230,19 @@ void display() {
         cameraTarget.x, cameraTarget.y, cameraTarget.z,
         0.0, 1.0, 0.0
     );
-
-    for (size_t i = 0; i < originalRookPositions.size(); i++) {
-        //Black Pieces
+    //Black Pieces
+    for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
+        //Black Rook 1
         glPushMatrix(); {
-
-            textureManager->useTexture("darkMarble");
-            glColor3f(0.2f, 0.2f, 0.2f);
-            glTranslatef(currentRookPositions[i].x, currentRookPositions[i].y, currentRookPositions[i].z);
+            textureManager->useTexture("darkMarble"); 
+            //glColor3f(0.2f, 0.2f, 0.2f);
+            glTranslatef(currentBlackRookOnePositions[i].x, currentBlackRookOnePositions[i].y, currentBlackRookOnePositions[i].z);
             rook->draw();
         }
         glPopMatrix();
     }
 
-
+    //Black Rook 2
     glPushMatrix(); {
         glColor3f(0.2f, 0.2f, 0.2f);
         glTranslatef(-6.0f, 1.0f, -8.0f);
@@ -246,10 +250,10 @@ void display() {
     }
     glPopMatrix();
 
-    for (size_t i = 0; i < originalKnightPositions.size(); i++) {
+    for (size_t i = 0; i < originalBlackKnightOnePositions.size(); i++) {
         glPushMatrix(); {
             glColor3f(0.2f, 0.2f, 0.2f);
-            glTranslatef(currentKnightPositions[i].x, currentKnightPositions[i].y, currentKnightPositions[i].z); 
+            glTranslatef(currentBlackKnightOnePositions[i].x, currentBlackKnightOnePositions[i].y, currentBlackKnightOnePositions[i].z); 
             glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
             knight->draw();
         }
@@ -336,19 +340,19 @@ void keyCallback(unsigned char key, int x, int y) {
             break;
         case 'r':
             // Add a new rook at a random position
-            originalRookPositions.push_back(glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5));
-            currentRookPositions.push_back(originalRookPositions.back());
+            originalBlackRookOnePositions.push_back(glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5));
+            currentBlackRookOnePositions.push_back(originalBlackRookOnePositions.back());
             break;
         case 'k':
             // Add a new knight at a random position
-            originalKnightPositions.push_back(glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5));
-            currentKnightPositions.push_back(originalKnightPositions.back());
+            originalBlackKnightOnePositions.push_back(glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5));
+            currentBlackKnightOnePositions.push_back(originalBlackKnightOnePositions.back());
             break;
         case ' ':
             if (!isAnimating) {
                 // Start the animation
-                targetRookPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
-                targetKnightPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5); 
+                targetBlackRookOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
+                targetBlackKnightOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5); 
                 animationStartTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
                 isAnimating = true;
             }
@@ -380,9 +384,8 @@ void specialKeyCallback(int key, int x, int y) {
 }
 
 void updateAnimation() {
-    // This function should update the targetRookPosition if you're animating the rook's movement.
+    // This function should update the targetRookPosition
     //  set the new target position based on some logic.
-    // For example, if you want the rook to move to a random position, you can do something like this:
 
     if (isAnimating) {
         float currentTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
@@ -390,8 +393,8 @@ void updateAnimation() {
 
         if (elapsedTime >= animationDuration) {
             // Animation is complete, set a new target position.
-            targetRookPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
-            targetKnightPosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
+            targetBlackRookOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
+            targetBlackKnightOnePosition = glm::vec3(rand() % 10 - 5, 1.0f, rand() % 10 - 5);
             animationStartTime = currentTime; // Reset animation start time
         }
     }
