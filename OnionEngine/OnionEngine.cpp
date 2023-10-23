@@ -413,10 +413,26 @@ void display() {
     }
     glPopMatrix();
 
+    //white Nishop
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, 2.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
+    //white Bishop
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(8.0f, 1.0f, -4.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
     //white Queen
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
-        glTranslatef(0.0f, 0.0f, 0.0f);
+        glTranslatef(8.0f, 1.0f, -2.0f);
         queen->draw();
     }
     glPopMatrix();
