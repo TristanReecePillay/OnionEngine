@@ -11,7 +11,7 @@ const GLfloat borderWidth = 0.0f; // NOPE this is the space between cells which 
 const GLfloat cellDepth = 0.5f;
 
 // Chessboard square colors 
-const glm::vec3 blackSquareColor(0.0f, 0.0f, 0.0f);
+const glm::vec3 blackSquareColor(0.5f, 0.5f, 0.5f);
 const glm::vec3 whiteSquareColor(1.0f, 1.0f, 1.0f);
 const glm::vec3 borderColor(0.2f, 0.2f, 0.2f); // Gray border color
 

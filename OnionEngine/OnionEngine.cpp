@@ -653,7 +653,6 @@ void display() {
   //TERRAIN 
     textureManager->useTexture("grass");
     glPushMatrix(); {
-       
         terrain->draw();
     }
     glPopMatrix();
