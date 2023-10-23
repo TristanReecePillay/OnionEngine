@@ -58,7 +58,7 @@ Bishop* bishop;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
-    glm::vec3(40.0f, 15.0f, 0.0f),  // Camera 2 position
+    glm::vec3(20.0f, 20.0f, 0.0f),  // Camera 2 position
     glm::vec3(0.1f, 40.0f, 0.0f) // Camera 3 position
 };
 
@@ -249,9 +249,9 @@ void initGameObjects() {
     bishop->generateDisplayList();
 
     // Initialize positions for the initial chess pieces
-    originalBlackRookOnePositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));
+    originalBlackRookOnePositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));  // x ltor y zfrontnbsack 
     originalBlackRookTwoPositions.push_back(glm::vec3(-6.0f, 1.0f, -8.0f));
-    originalBlackKnightOnePositions.push_back(glm::vec3(-6.0f, 1.0f, -6.0f));
+    originalBlackKnightOnePositions.push_back(glm::vec3(-6.0f, 1.0f, -6.0f)); //refs
     originalBlackKnightTwoPositions.push_back(glm::vec3(-6.0f, 1.0f, 4.0f));
 
     originalWhiteRookOnePositions.push_back(glm::vec3(8.0f, 1.0f, 6.0f));
@@ -308,7 +308,7 @@ void display() {
         0.0, 1.0, 0.0
     );
 
-    textureManager->useTexture("darkMarble");
+   // textureManager->useTexture("darkMarble");
     //BLACK PIECES
     for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
         //Black Rook 1
@@ -327,15 +327,16 @@ void display() {
             glTranslatef(currentBlackRookTwoPositions[i].x, currentBlackRookTwoPositions[i].y, currentBlackRookTwoPositions[i].z);
             rook->draw();
         }
+        glPopMatrix(); 
     }
 
-    glPopMatrix();
+   
 
     for (size_t i = 0; i < originalBlackKnightOnePositions.size(); i++) {
         //Black Knight 1
-        glPushMatrix(); {
+        glPushMatrix(); {//draw
             glColor3f(0.2f, 0.2f, 0.2f);
-            glTranslatef(currentBlackKnightOnePositions[i].x, currentBlackKnightOnePositions[i].y, currentBlackKnightOnePositions[i].z); 
+            glTranslatef(currentBlackKnightOnePositions[i].x, currentBlackKnightOnePositions[i].y, currentBlackKnightOnePositions[i].z); //draw end
             glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
             knight->draw();
         }
@@ -353,6 +354,13 @@ void display() {
         glPopMatrix();
     }
     
+    //Black King
+    glPushMatrix(); {
+        glColor3f(0.8f, 0.08f, 0.08f);
+        glTranslatef(-6.0f, 1.0f, 0.0f);
+        king->draw();
+    }
+    glPopMatrix(); 
 
     //WHITE PIECES
     textureManager->useTexture("marble"); 
@@ -499,7 +507,7 @@ void specialKeyCallback(int key, int x, int y) {
 
 void updateAnimation() {
     // This function should update the targetRookPosition
-    //  set the new target position based on some logic.
+    //  set the new target position.
 
     if (isAnimating) {
         float currentTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
