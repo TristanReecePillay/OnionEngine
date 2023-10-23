@@ -10,6 +10,7 @@ TextureManager::TextureManager() {
 	textures.insert({ "gold", new Texture("../Textures/gold_block.png") });
 	textures.insert({ "pink", new Texture("../Textures/pink_block.png") });
 	textures.insert({ "sand", new Texture("../Textures/Sand.jpg") });
+	textures.insert({ "water", new Texture("../Textures/Water.jpg") });
 	textures.insert({ "grass", new Texture("../Textures/seamless-grass-texture.jpg") });
 	textures.insert({ "heightmap", new Texture("../Textures/HeightMap4.jpg", 0) });
 }

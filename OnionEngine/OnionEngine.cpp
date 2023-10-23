@@ -383,6 +383,7 @@ void display() {
     }
     
     //Black King
+    textureManager->useTexture("darkMarble");
     glPushMatrix(); {
         glColor3f(0.8f, 0.08f, 0.08f);
         glTranslatef(-6.0f, 1.0f, 0.0f);
@@ -391,7 +392,8 @@ void display() {
     glPopMatrix(); 
 
 
-    //Black Bishop
+    //Black Bishop 1 
+    textureManager->useTexture("darkMarble");
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(-6.0f, 1.0f, 2.0f);
@@ -400,6 +402,7 @@ void display() {
     glPopMatrix();
 
     //Black Bishop 2
+    textureManager->useTexture("darkMarble");
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(-6.0f, 1.0f, -4.0f);
@@ -408,6 +411,7 @@ void display() {
     glPopMatrix();
 
     //Black Queen
+    textureManager->useTexture("darkMarble");
     glPushMatrix(); {
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(-6.0f, 1.0f, -2.0f);
@@ -416,7 +420,6 @@ void display() {
     glPopMatrix();
 
     //Black Pawn 1
-    
     for (size_t i = 0; i < originalBlackPawnPositions.size(); i++) {
         textureManager->useTexture("darkMarble");
         glPushMatrix(); {
@@ -656,7 +659,7 @@ void display() {
     glPopMatrix();
 
     //ChessBoard 
-    textureManager->useTexture("gold");
+    textureManager->useTexture("water");
     glPushMatrix(); {
         glRotatef(-90, 1, 0, 0);
         glScalef(2.0f, 2.0f, 1.0f);
