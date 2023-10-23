@@ -57,8 +57,8 @@ Queen* queen;
 Bishop* bishop;
 
 glm::vec3 cameraPositions[3] = {
-    glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
-    glm::vec3(20.0f, 20.0f, 0.0f),  // Camera 2 position
+    glm::vec3(0.0f, 10.0f, -20.0f),  // Camera 1 position
+    glm::vec3(20.0f, 10.0f, 0.0f),  // Camera 2 position
     glm::vec3(0.1f, 40.0f, 0.0f) // Camera 3 position
 };
 
@@ -308,12 +308,12 @@ void display() {
         0.0, 1.0, 0.0
     );
 
-   // textureManager->useTexture("darkMarble");
+   textureManager->useTexture("darkMarble");
     //BLACK PIECES
     for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
         //Black Rook 1
         glPushMatrix(); {
-            glColor3f(0.2f, 0.2f, 0.2f); 
+            glColor3f(0.5f, 0.5f, 0.5f); 
             glTranslatef(currentBlackRookOnePositions[i].x, currentBlackRookOnePositions[i].y, currentBlackRookOnePositions[i].z);
             rook->draw();
         }
@@ -323,7 +323,7 @@ void display() {
     for (size_t i = 0; i < originalBlackRookTwoPositions.size(); i++) {
         //Black Rook 2
         glPushMatrix(); {
-            glColor3f(0.2f, 0.2f, 0.2f);
+            glColor3f(0.5f, 0.5f, 0.5f);
             glTranslatef(currentBlackRookTwoPositions[i].x, currentBlackRookTwoPositions[i].y, currentBlackRookTwoPositions[i].z);
             rook->draw();
         }
@@ -335,7 +335,7 @@ void display() {
     for (size_t i = 0; i < originalBlackKnightOnePositions.size(); i++) {
         //Black Knight 1
         glPushMatrix(); {//draw
-            glColor3f(0.2f, 0.2f, 0.2f);
+            glColor3f(0.5f, 0.5f, 0.5f);
             glTranslatef(currentBlackKnightOnePositions[i].x, currentBlackKnightOnePositions[i].y, currentBlackKnightOnePositions[i].z); //draw end
             glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
             knight->draw();
@@ -346,7 +346,7 @@ void display() {
     for (size_t i = 0; i < originalBlackKnightTwoPositions.size(); i++) {
         //Black Knight 2
         glPushMatrix(); {
-            glColor3f(0.2f, 0.2f, 0.2f);
+            glColor3f(0.5f, 0.5f, 0.5f);
             glTranslatef(currentBlackKnightTwoPositions[i].x, currentBlackKnightTwoPositions[i].y, currentBlackKnightTwoPositions[i].z);
             glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
             knight->draw();
@@ -405,6 +405,22 @@ void display() {
         }
         glPopMatrix();
     }
+
+    //White Pawn 1
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f); 
+        glTranslatef(6.0f, 1.0f, 6.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
+
+    //White Pawn 2
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(6.0f, 1.0f, 4.0f);
+        pawn->draw();
+    }
+    glPopMatrix();
 
   //TERRAIN 
     textureManager->useTexture("grass");
