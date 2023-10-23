@@ -416,9 +416,9 @@ void display() {
 
     //White Pawn 2
     glPushMatrix(); {
-        glColor3f(1.0f, 1.0f, 1.0f);
+        glColor3f(1.0f, 1.0f, 1.0f); 
         glTranslatef(6.0f, 1.0f, 4.0f);
-        pawn->draw();
+        pawn->draw(); 
     }
     glPopMatrix();
 
