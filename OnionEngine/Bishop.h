@@ -4,6 +4,6 @@
 class Bishop : public GameObject
 {
 private:
-	void drawGeometry();
+	void drawGeometry(); //override
 };
 
