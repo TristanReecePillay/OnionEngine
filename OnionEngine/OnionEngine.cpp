@@ -308,7 +308,7 @@ void display() {
         0.0, 1.0, 0.0
     );
 
-   // textureManager->useTexture("darkMarble");
+    textureManager->useTexture("darkMarble");
     //BLACK PIECES
     for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
         //Black Rook 1
@@ -361,6 +361,31 @@ void display() {
         king->draw();
     }
     glPopMatrix(); 
+
+
+    //black Nishop
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-6.0f, 1.0f, 2.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
+    //black Bishop
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-6.0f, 1.0f, -4.0f);
+        bishop->draw();
+    }
+    glPopMatrix();
+
+    //black Queen
+    glPushMatrix(); {
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTranslatef(-6.0f, 1.0f, -2.0f);
+        queen->draw();
+    }
+    glPopMatrix();
 
     //WHITE PIECES
     textureManager->useTexture("marble"); 
