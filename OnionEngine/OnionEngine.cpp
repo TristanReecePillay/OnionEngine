@@ -22,13 +22,13 @@
 #include "Bishop.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
-#define GLEW_STATIC
+#define GLEW_STATIC 
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 
-#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION 
 #include <stb_image.h>
 
 
@@ -672,7 +672,7 @@ void display() {
         glTranslatef(1.0f, 0.0f, -1.0f);
         //glRotatef(-90, 1, 0, 0); 
         //glScalef(2.0f, 2.0f, 2.0f);
-        border->draw(); 
+        border->draw();  
     }
     glPopMatrix();
 

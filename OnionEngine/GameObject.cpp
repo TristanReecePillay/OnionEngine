@@ -6,23 +6,23 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-void GameObject::generateDisplayList() {
-    displayListId = glGenLists(1); //number indicates number of display lists
-    glNewList(displayListId, GL_COMPILE); {
-        drawGeometry();
+void GameObject::generateDisplayList() { 
+    displayListId = glGenLists(1); //number indicates number of display lists 
+    glNewList(displayListId, GL_COMPILE); { 
+        drawGeometry(); 
     }
     glEndList();
-    displayListGenerated = true;
+    displayListGenerated = true; 
 }
 
-void GameObject::setPosition(float x, float y, float z) {
-    position = vec3(x, y, z);
+void GameObject::setPosition(float x, float y, float z) { 
+    position = vec3(x, y, z); 
 }
 
-void GameObject::draw() {
-    glPushMatrix(); {
-        glTranslatef(position.x, position.y, position.z);
-        if (displayListGenerated) {
+void GameObject::draw() { 
+    glPushMatrix(); { 
+        glTranslatef(position.x, position.y, position.z); 
+        if (displayListGenerated) { 
             glCallList(displayListId);
         }
         else {
