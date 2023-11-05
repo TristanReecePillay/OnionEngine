@@ -20,6 +20,7 @@
 #include "King.h"
 #include "Queen.h"
 #include "Bishop.h"
+#include "Input.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC 
@@ -210,10 +211,17 @@ int main(int argc, char* argv[]) {
     glutInitWindowSize(WIDTH, HEIGHT);
     int window = glutCreateWindow("Terrain Renderer");
   
+    glutMotionFunc(Input::mousePositionUpdate); 
+    glutPassiveMotionFunc(Input::mousePositionUpdate); 
+    glutKeyboardFunc(Input::keyboardUpdate); 
+    glutKeyboardUpFunc(Input::keyboardUpUpdate); 
+
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
     glutKeyboardFunc(keyCallback); // Register the key callback
     glutSpecialFunc(specialKeyCallback);
+
+    
     
     init();
 
@@ -316,10 +324,12 @@ void cleanUp() {
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    Input::updateBefore(); 
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    
     interpolatePiecePositions();
     updateAnimation();
 
@@ -676,8 +686,8 @@ void display() {
     }
     glPopMatrix();
 
+    Input::updateAfter();  
     glutSwapBuffers();
-
 
 }
 

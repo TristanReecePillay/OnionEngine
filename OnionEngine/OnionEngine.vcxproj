@@ -137,6 +137,7 @@
     <ClCompile Include="Border.cpp" />
     <ClCompile Include="Chessboard.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Border.h" />
     <ClInclude Include="Chessboard.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Model.h" />
