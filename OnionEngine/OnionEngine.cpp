@@ -14,6 +14,8 @@
 #include "TerrainGameObject.h"
 #include "Chessboard.h"
 #include "Border.h"
+#include "Model.h"
+#include "ModelPart.h"
 #include "Rook.h"
 #include "Knight.h"
 #include "Pawn.h"
@@ -32,6 +34,9 @@
 #define STB_IMAGE_IMPLEMENTATION 
 #include <stb_image.h>
 
+//Tinyobjloader
+#define TINYOBJLOADER_IMPLEMENTATION
+#include<tiny_obj_loader.h>
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -56,6 +61,7 @@ Pawn* pawn;
 King* king;
 Queen* queen;
 Bishop* bishop;
+Model* catModel;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
@@ -277,6 +283,9 @@ void initGameObjects() {
     bishop = new Bishop();
     bishop->generateDisplayList();
 
+    catModel = new Model("../Models/cat1/", "cat1"); 
+    catModel->generateDisplayList(); 
+
     // Initialize positions for the initial chess pieces
     originalBlackRookOnePositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));  // x ltor y zfrontnbsack 
     originalBlackRookTwoPositions.push_back(glm::vec3(-6.0f, 1.0f, -8.0f));
@@ -319,6 +328,7 @@ void cleanUp() {
     delete king;
     delete queen;
     delete bishop;
+    delete catModel;
 }
 
 
@@ -342,6 +352,14 @@ void display() {
         cameraTarget.x, cameraTarget.y, cameraTarget.z,
         0.0, 1.0, 0.0
     );
+
+    //CAT MODEL
+    glPushMatrix(); {
+        //glRotatef(90.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(0.0f, 10.0f, 0.0f);
+        catModel->draw();
+    }
+    glPopMatrix();
 
     //BLACK PIECES
    textureManager->useTexture("darkMarble");
