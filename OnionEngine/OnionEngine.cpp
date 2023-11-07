@@ -23,6 +23,7 @@
 #include "Queen.h"
 #include "Bishop.h"
 #include "Input.h"
+#include "Light.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC 
@@ -62,6 +63,8 @@ King* king;
 Queen* queen;
 Bishop* bishop;
 Model* catModel;
+Light* light1; 
+Light* light2;
 
 glm::vec3 cameraPositions[3] = {
     glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
@@ -286,6 +289,17 @@ void initGameObjects() {
     catModel = new Model("../Models/cat1/", "cat1"); 
     catModel->generateDisplayList(); 
 
+    glEnable(GL_LIGHTING); 
+    light1 = new Light(); 
+    light1->setPosition(vec4(-20, 30, 0, 1)); 
+    light1->setDiffuse(vec4(0.8, 0.0, 0.0, 1));
+    light1->enable();  
+
+    light2 = new Light();
+    light2->setPosition(vec4(20, 30, 0, 1));
+    light2->setDiffuse(vec4(0.0, 0.7, 0.3, 1));
+    light2->enable();
+
     // Initialize positions for the initial chess pieces
     originalBlackRookOnePositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));  // x ltor y zfrontnbsack 
     originalBlackRookTwoPositions.push_back(glm::vec3(-6.0f, 1.0f, -8.0f));
@@ -329,6 +343,8 @@ void cleanUp() {
     delete queen;
     delete bishop;
     delete catModel;
+    delete light1;
+    delete light2;
 }
 
 
@@ -706,7 +722,6 @@ void display() {
 
     Input::updateAfter();  
     glutSwapBuffers();
-
 }
 
 void timer(int) {

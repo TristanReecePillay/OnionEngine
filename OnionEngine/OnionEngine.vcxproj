@@ -140,6 +140,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="Knight.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelPart.cpp" />
     <ClCompile Include="Pawn.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelPart.h" />
     <ClInclude Include="Pawn.h" />
