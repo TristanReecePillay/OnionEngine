@@ -286,7 +286,7 @@ void initGameObjects() {
     bishop = new Bishop();
     bishop->generateDisplayList();
 
-    catModel = new Model("../Models/cat1/", "cat1"); 
+    catModel = new Model("../Models/statue/", "statue"); 
     catModel->generateDisplayList(); 
 
     glEnable(GL_LIGHTING); 
@@ -372,7 +372,7 @@ void display() {
     //CAT MODEL
     glPushMatrix(); {
         //glRotatef(90.0, 0.0f, 1.0f, 0.0f);
-        glTranslatef(0.0f, 10.0f, 0.0f);
+        glTranslatef(0.0f, 5.0f, 0.0f);
         catModel->draw();
     }
     glPopMatrix();
