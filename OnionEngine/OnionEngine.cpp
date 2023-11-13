@@ -286,19 +286,19 @@ void initGameObjects() {
     bishop = new Bishop();
     bishop->generateDisplayList();
 
-    catModel = new Model("../Models/statue/", "statue"); 
+    catModel = new Model("../Models/ChessModels/", "CandyQueen"); 
     catModel->generateDisplayList(); 
 
-    glEnable(GL_LIGHTING); 
-    light1 = new Light(); 
-    light1->setPosition(vec4(-20, 30, 0, 1)); 
-    light1->setDiffuse(vec4(0.8, 0.0, 0.0, 1));
-    light1->enable();  
+    glEnable(GL_LIGHTING);  
+    light1 = new Light();  
+    light1->setPosition(vec4(-20, 30, 0, 1));  
+    light1->setDiffuse(vec4(0.8, 0.0, 0.0, 1)); 
+    light1->enable();    
 
-    light2 = new Light();
-    light2->setPosition(vec4(20, 30, 0, 1));
-    light2->setDiffuse(vec4(0.0, 0.7, 0.3, 1));
-    light2->enable();
+    light2 = new Light(); 
+    light2->setPosition(vec4(20, 30, 0, 1)); 
+    light2->setDiffuse(vec4(0.0, 0.7, 0.3, 1)); 
+    light2->enable(); 
 
     // Initialize positions for the initial chess pieces
     originalBlackRookOnePositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));  // x ltor y zfrontnbsack 
