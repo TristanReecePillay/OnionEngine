@@ -286,7 +286,7 @@ void initGameObjects() {
     bishop = new Bishop();
     bishop->generateDisplayList();
 
-    catModel = new Model("../Models/ChessModels/", "CandyQueen"); 
+    catModel = new Model("../Models/Blendfiles/", "CandyBishop"); 
     catModel->generateDisplayList(); 
 
     glEnable(GL_LIGHTING);  

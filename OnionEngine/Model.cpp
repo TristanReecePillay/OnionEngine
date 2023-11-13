@@ -21,7 +21,7 @@ void Model::loadModel(string path, string name) {
 	std::vector<tinyobj::material_t> objMaterials;
 	std::string warn, err;
 
-	string objPath = path + "/" + name + ".fbx";
+	string objPath = path + "/" + name + ".obj";
 	string mtlPath = path;
 
 	if (!tinyobj::LoadObj(&attrib, &shapes, &objMaterials, &warn, &err, objPath.c_str(), mtlPath.c_str())) {
