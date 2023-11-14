@@ -78,6 +78,11 @@ bool isDragging = false;
 int prevX = 0;
 int prevY = 0;
 
+int frameCount = 0;    
+int currentTime = 0;   
+int previousTime = 0;   
+float fps = 0.0f;     
+
 //glm::vec3 cameraPositions[3] = {
 //    glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
 //    glm::vec3(20.0f, 20.0f, 0.0f),  // Camera 2 position
@@ -756,6 +761,24 @@ void display() {
         terrain->draw();
     }
     glPopMatrix();
+
+    //FPS
+    frameCount++;
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+    
+    int deltaTime = currentTime - previousTime;
+
+    
+    if (deltaTime > 1000) {
+        fps = static_cast<float>(frameCount) / (deltaTime / 1000.0f);
+
+
+        frameCount = 0;
+        previousTime = currentTime;
+    }
+    // Console shows fps
+    std::cout << "FPS: " << fps << std::endl;
 
     //ChessBoard 
     textureManager->useTexture("water");
