@@ -1,4 +1,4 @@
-// SquareAnim.cpp : This file contains the 'main' function. Program execution begins and ends there.
+
 #include <iostream>
 #include <ctime>
 #include <fstream>
@@ -66,8 +66,9 @@ King* king;
 Queen* queen;
 Bishop* bishop;
 Model* catModel;
-Light* light1; 
-Light* light2; 
+Light* pointLight; 
+Light* spotLight; 
+Light* directionalLight;
 
 Camera camera(glm::vec3(0.0f, 10.0f, 30.0f),  
               glm::vec3(0.0f, 0.0f, 0.0f),     
@@ -222,7 +223,7 @@ void resetPiecePositions() {
 int main(int argc, char* argv[]) {
 
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); 
 
     int windowX = (int)(glutGet(GLUT_SCREEN_WIDTH) - WIDTH) / 2;
     int windowY = (int)(glutGet(GLUT_SCREEN_HEIGHT) - HEIGHT) / 2;
@@ -294,6 +295,28 @@ void init() {
 
     glClearColor(0.6f, 0.8f, 0.9f, 1.0f); //(0.6f, 0.8f, 0.9f, 1.0f) For light blue
 
+    glEnable(GL_LIGHTING); 
+    pointLight = new Light();  
+    pointLight->setPosition(vec4(0, 10, 0, 1));  
+    pointLight->setDiffuse(vec4(0.0, 0.0, 1.0, 1));  //Blue  
+    pointLight->enable();  
+
+    spotLight = new Light(); 
+    spotLight->setSpotlight(true);
+    spotLight->setPosition(vec4(50, 20, 0, 1));  
+    spotLight->setSpotDirection(glm::vec3(-0.5f, -1.0f, 0.0f)); // Set the direction of the spotlight
+    spotLight->setSpotCutoff(20.0f); // Set the cutoff angle of the spotlight
+    spotLight->setSpotExponent(20.0f);  
+    spotLight->setDiffuse(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)); // Set the diffuse color RED
+    spotLight->enable(); 
+
+    directionalLight = new Light();
+    directionalLight->setDirectional(true);
+    directionalLight->setPosition(vec4(0, 50, -50, 1));
+    directionalLight->setDirection(glm::vec3(0.0f, -1.0f, 0.0f)); // Set the direction of the light
+    directionalLight->setDiffuse(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));//Green
+    directionalLight->enable(); 
+     
     initGameObjects();
 }
 
@@ -330,16 +353,7 @@ void initGameObjects() {
     catModel = new Model("../Models/Blendfiles/", "CandyBishop"); 
     catModel->generateDisplayList(); 
 
-    glEnable(GL_LIGHTING);  
-    light1 = new Light();  
-    light1->setPosition(vec4(-20, 30, 0, 1));  
-    light1->setDiffuse(vec4(0.8, 0.0, 0.0, 1)); 
-    light1->enable();    
-
-    light2 = new Light(); 
-    light2->setPosition(vec4(20, 30, 0, 1)); 
-    light2->setDiffuse(vec4(0.0, 0.7, 0.3, 1)); 
-    light2->enable(); 
+    
 
     // Initialize positions for the initial chess pieces
     originalBlackRookOnePositions.push_back(glm::vec3(-6.0f, 1.0f, 6.0f));  // x ltor y zfrontnbsack 
@@ -384,8 +398,8 @@ void cleanUp() {
     delete queen;
     delete bishop;
     delete catModel;
-    delete light1;
-    delete light2;
+    delete pointLight;
+    delete spotLight;
 }
 
 
