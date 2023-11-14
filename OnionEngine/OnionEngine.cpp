@@ -50,6 +50,8 @@ void initGameObjects();
 void cleanUp();
 void keyCallback(unsigned char key, int x, int y); // Added key callback to switch camera positions
 void specialKeyCallback(int key, int x, int y);
+void mouseCallback(int button, int state, int x, int y);
+void motionCallback(int x, int y);
 void updateAnimation();
 
 TextureManager* textureManager;
@@ -69,7 +71,11 @@ Light* light2;
 
 Camera camera(glm::vec3(0.0f, 10.0f, 30.0f),  
               glm::vec3(0.0f, 0.0f, 0.0f),     
-              glm::vec3(0.0f, 1.0f, 0.0f));    
+              glm::vec3(0.0f, 1.0f, 0.0f));  
+
+bool isDragging = false;
+int prevX = 0;
+int prevY = 0;
 
 //glm::vec3 cameraPositions[3] = {
 //    glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
@@ -231,6 +237,8 @@ int main(int argc, char* argv[]) {
     glutKeyboardUpFunc(Input::keyboardUpUpdate); 
 
     glutDisplayFunc(display);
+    glutMouseFunc(mouseCallback); 
+    glutMotionFunc(motionCallback); 
     glutTimerFunc(0, timer, 0);
     glutKeyboardFunc(keyCallback); // Register the key callback
     glutSpecialFunc(specialKeyCallback);
@@ -247,6 +255,34 @@ int main(int argc, char* argv[]) {
     cleanUp();
 
     return 0;
+}
+
+void mouseCallback(int button, int state, int x, int y) {
+    if (button == GLUT_LEFT_BUTTON) {
+        if (state == GLUT_DOWN) {
+            isDragging = true;
+            prevX = x;
+            prevY = y;
+        }
+        else {
+            isDragging = false;
+        }
+    }
+} 
+
+void motionCallback(int x, int y) {
+    if (isDragging) {
+        int deltaX = x - prevX;
+        int deltaY = y - prevY;
+        float sensitivity = 0.1f;
+
+        camera.rotateView(deltaX, deltaY);
+
+        prevX = x;
+        prevY = y;
+
+        glutPostRedisplay();
+    }
 }
 
 

@@ -19,6 +19,8 @@ private:
     };
 
     int currentCamera = 0;
+    float yaw = 0.0f;
+    float pitch = 0.0f;
     bool freeMovement;
 
 public:
@@ -80,6 +82,35 @@ public:
     void updateCameraPositions() {
         cameraPosition = cameraPositions[currentCamera];
         // Update cameraTarget and upVector based on the new position if needed
+    }
+
+    void rotateView(float deltaX, float deltaY) {
+        const float sensitivity = 0.1f;
+
+        // Update yaw and pitch angles based on mouse movement
+        yaw += deltaX * sensitivity;
+        pitch += deltaY * sensitivity;
+
+        // Limit pitch to avoid flipping the view
+        if (pitch > 89.0f) {
+            pitch = 89.0f;
+        }
+        if (pitch < -89.0f) {
+            pitch = -89.0f;
+        }
+
+        // Calculate new direction
+        glm::vec3 front;
+        front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        front.y = sin(glm::radians(pitch));
+        front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        glm::vec3 newTarget = cameraPosition + glm::normalize(front);
+
+        // Update upVector if necessary (e.g., for a free-look camera)
+        upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+
+        // Update the view matrix by using glm::lookAt
+        cameraTarget = newTarget;
     }
 };
 
