@@ -780,6 +780,37 @@ void display() {
     // Console shows fps
     std::cout << "FPS: " << fps << std::endl;
 
+/*
+    // Display FPS on the window
+    std::ostringstream oss;
+    oss << "FPS: " << fps;
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    gluOrtho2D(0.0, WIDTH, 0.0, HEIGHT);
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glColor3f(1.0, 1.0, 1.0);
+    glRasterPos2i(10, 10);
+
+    
+    for (const char& c : oss.str()) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+    }
+
+    glPopMatrix();
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+
+
+    glutSwapBuffers();*/
+
+
     //ChessBoard 
     textureManager->useTexture("water");
     glPushMatrix(); {
