@@ -236,6 +236,8 @@ int main(int argc, char* argv[]) {
     glutInitWindowPosition(windowX, windowY);
     glutInitWindowSize(WIDTH, HEIGHT);
     int window = glutCreateWindow("Terrain Renderer");
+
+
   
     glutMotionFunc(Input::mousePositionUpdate); 
     glutPassiveMotionFunc(Input::mousePositionUpdate); 
@@ -249,7 +251,7 @@ int main(int argc, char* argv[]) {
     glutKeyboardFunc(keyCallback); // Register the key callback
     glutSpecialFunc(specialKeyCallback);
 
-    
+   
     
     init();
 
@@ -407,6 +409,50 @@ void cleanUp() {
     delete spotLight;
 }
 
+
+void calculateAndPrintFPS() {
+    frameCount++;
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+    // Calculate time passed
+    int timeInterval = currentTime - previousTime;
+
+    // Update the FPS every second (1000 milliseconds)
+    if (timeInterval > 1000) {
+        // Calculate the FPS
+        float fps = frameCount / (timeInterval / 1000.0f);
+
+        // Convert FPS to string
+        std::stringstream ss;
+        ss << "FPS: " << fps;
+        std::string fpsString = ss.str();
+
+        // Print FPS on the window using GLUT's glutBitmapCharacter
+        glMatrixMode(GL_PROJECTION);
+        glPushMatrix();
+        glLoadIdentity();
+        gluOrtho2D(0, glutGet(GLUT_WINDOW_WIDTH), 0, glutGet(GLUT_WINDOW_HEIGHT));
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glLoadIdentity();
+
+        glColor3f(1.0, 1.0, 1.0); // Set text color to white
+
+        glRasterPos2i(10, 10); // Set position for the text
+        for (char c : fpsString) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
+
+        glPopMatrix();
+        glMatrixMode(GL_PROJECTION);
+        glPopMatrix();
+        glMatrixMode(GL_MODELVIEW);
+
+        // Reset frame count and time
+        frameCount = 0;
+        previousTime = currentTime;
+    }
+}
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -809,6 +855,8 @@ void display() {
 
 
     glutSwapBuffers();*/
+
+   
 
 
     //ChessBoard 
