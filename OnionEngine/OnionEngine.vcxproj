@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Border.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Chessboard.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Border.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Chessboard.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />

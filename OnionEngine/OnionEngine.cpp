@@ -24,6 +24,7 @@
 #include "Bishop.h"
 #include "Input.h"
 #include "Light.h"
+#include "Camera.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> 
 #define GLEW_STATIC 
@@ -64,13 +65,17 @@ Queen* queen;
 Bishop* bishop;
 Model* catModel;
 Light* light1; 
-Light* light2;
+Light* light2; 
 
-glm::vec3 cameraPositions[3] = {
-    glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
-    glm::vec3(20.0f, 20.0f, 0.0f),  // Camera 2 position
-    glm::vec3(0.1f, 40.0f, 0.0f) // Camera 3 position
-};
+Camera camera(glm::vec3(0.0f, 10.0f, 30.0f),  
+              glm::vec3(0.0f, 0.0f, 0.0f),     
+              glm::vec3(0.0f, 1.0f, 0.0f));    
+
+//glm::vec3 cameraPositions[3] = {
+//    glm::vec3(0.0f, 15.0f, -30.0f),  // Camera 1 position
+//    glm::vec3(20.0f, 20.0f, 0.0f),  // Camera 2 position
+//    glm::vec3(0.1f, 40.0f, 0.0f) // Camera 3 position
+//};
 
 
 int currentCamera = 0; // Index of the currently active camera
@@ -359,15 +364,16 @@ void display() {
     interpolatePiecePositions();
     updateAnimation();
 
+    camera.applyCameraView(); 
     // Set the camera view based on the currently active camera
-    glm::vec3 cameraPosition = cameraPositions[currentCamera];
-    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f); // Target point
+    //glm::vec3 cameraPosition = cameraPositions[currentCamera];
+    //glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f); // Target point
 
-    gluLookAt(
-        cameraPosition.x, cameraPosition.y, cameraPosition.z,
-        cameraTarget.x, cameraTarget.y, cameraTarget.z,
-        0.0, 1.0, 0.0
-    );
+    //gluLookAt(
+    //    cameraPosition.x, cameraPosition.y, cameraPosition.z,
+    //    cameraTarget.x, cameraTarget.y, cameraTarget.z,
+    //    0.0, 1.0, 0.0
+    //);
 
     //CAT MODEL
     glPushMatrix(); {
@@ -771,6 +777,21 @@ void keyCallback(unsigned char key, int x, int y) {
         case 'x':
             resetPiecePositions();
             break;
+        case 'w':
+            camera.moveForward(0.5f);
+            break;
+        case 'a':
+            camera.moveLeft(0.5f);
+            break;
+        case 'd':
+            camera.moveRight(0.5f);
+            break;
+        case 's':
+            camera.moveBack(0.5f);
+            break;
+        case 9: // ASCII value for 'Tab' key
+            camera.toggleFreeMovement();
+            break;
         case 27: // ESC key
             exit(0); // Exit the program
             break;
@@ -785,10 +806,12 @@ void specialKeyCallback(int key, int x, int y) {
     // Handle arrow key presses to navigate between cameras
     switch (key) {
     case GLUT_KEY_LEFT:
-        currentCamera = (currentCamera + 2) % 3; // Switch to the previous camera
+        //currentCamera = (currentCamera + 2) % 3; // Switch to the previous camera
+        camera.switchToPreviousCamera();
         break;
     case GLUT_KEY_RIGHT:
-        currentCamera = (currentCamera + 1) % 3; // Switch to the next camera
+        //currentCamera = (currentCamera + 1) % 3; // Switch to the next camera
+        camera.switchToNextCamera();  
         break;
     }
     glutPostRedisplay();
