@@ -235,7 +235,7 @@ int main(int argc, char* argv[]) {
 
     glutInitWindowPosition(windowX, windowY);
     glutInitWindowSize(WIDTH, HEIGHT);
-    int window = glutCreateWindow("Terrain Renderer");
+    int window = glutCreateWindow("Onion Engine");
 
 
   
@@ -449,8 +449,8 @@ void calculateAndPrintFPS() {
         glMatrixMode(GL_MODELVIEW);
 
         // Reset frame count and time
-        frameCount = 0;
-        previousTime = currentTime;
+        frameCount = 0; 
+        previousTime = currentTime; 
     }
 }
 
