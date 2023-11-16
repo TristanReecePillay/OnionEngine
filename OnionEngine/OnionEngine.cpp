@@ -239,10 +239,10 @@ int main(int argc, char* argv[]) {
 
 
   
-    glutMotionFunc(Input::mousePositionUpdate); 
+    /*glutMotionFunc(Input::mousePositionUpdate); 
     glutPassiveMotionFunc(Input::mousePositionUpdate); 
     glutKeyboardFunc(Input::keyboardUpdate); 
-    glutKeyboardUpFunc(Input::keyboardUpUpdate); 
+    glutKeyboardUpFunc(Input::keyboardUpUpdate);*/ 
 
     glutDisplayFunc(display);
     glutMouseFunc(mouseCallback); 
