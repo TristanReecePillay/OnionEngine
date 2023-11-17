@@ -359,7 +359,7 @@ void initGameObjects() {
     bishop = new Bishop();
     bishop->generateDisplayList();
 
-    catModel = new Model("../Models/cat1/", "cat1"); 
+    catModel = new Model("../Models/Oreo/", "Oreo"); 
     catModel->generateDisplayList(); 
 
     candyCane = new Model("../Models/CandyCane/", "CandyCanePiece");
@@ -486,13 +486,20 @@ void display() {
     //    0.0, 1.0, 0.0
     //);
 
-    //Bishop MODEL
+    //OREO MODEL
     glPushMatrix(); {
-        //glRotatef(90.0, 0.0f, 1.0f, 0.0f);
-        glTranslatef(0.0f, 5.0f, 0.0f);
+        glRotatef(60.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(-6.0f, 5.0f, 6.0f);
         catModel->draw();
     }
     glPopMatrix();
+
+    glPushMatrix(); { 
+        glRotatef(90.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(-6.0f, 5.0f, 9.5f);
+        catModel->draw();
+    }
+    glPopMatrix(); 
 
     //CandyCane
     glPushMatrix(); {
