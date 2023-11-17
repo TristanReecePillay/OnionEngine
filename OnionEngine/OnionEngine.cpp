@@ -66,6 +66,8 @@ King* king;
 Queen* queen;
 Bishop* bishop;
 Model* catModel;
+Model* candyCane;
+Model* dogModel;
 Light* pointLight; 
 Light* spotLight; 
 Light* directionalLight;
@@ -305,7 +307,7 @@ void init() {
     glEnable(GL_LIGHTING); 
     pointLight = new Light();  
     pointLight->setPosition(vec4(0, 10, 0, 1));  
-    pointLight->setDiffuse(vec4(0.0, 0.0, 1.0, 1));  //Blue  
+    pointLight->setDiffuse(vec4(1.0, 1.0, 1.0, 1));  //Blue  
     pointLight->enable();  
 
     spotLight = new Light(); 
@@ -321,7 +323,7 @@ void init() {
     directionalLight->setDirectional(true);
     directionalLight->setPosition(vec4(0, 50, -50, 1));
     directionalLight->setDirection(glm::vec3(0.0f, -1.0f, 0.0f)); // Set the direction of the light
-    directionalLight->setDiffuse(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));//Green
+    directionalLight->setDiffuse(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));//Green
     directionalLight->enable(); 
      
     initGameObjects();
@@ -357,8 +359,14 @@ void initGameObjects() {
     bishop = new Bishop();
     bishop->generateDisplayList();
 
-    catModel = new Model("../Models/Blendfiles/", "CandyBishop"); 
+    catModel = new Model("../Models/cat1/", "cat1"); 
     catModel->generateDisplayList(); 
+
+    candyCane = new Model("../Models/CandyCane/", "CandyCanePiece");
+    candyCane->generateDisplayList(); 
+
+    dogModel = new Model("../Models/Lollipop/", "Lolipop");
+    dogModel->generateDisplayList(); 
 
     
 
@@ -405,6 +413,8 @@ void cleanUp() {
     delete queen;
     delete bishop;
     delete catModel;
+    delete candyCane;
+    delete dogModel;
     delete pointLight;
     delete spotLight;
 }
@@ -476,7 +486,7 @@ void display() {
     //    0.0, 1.0, 0.0
     //);
 
-    //CAT MODEL
+    //Bishop MODEL
     glPushMatrix(); {
         //glRotatef(90.0, 0.0f, 1.0f, 0.0f);
         glTranslatef(0.0f, 5.0f, 0.0f);
@@ -484,6 +494,43 @@ void display() {
     }
     glPopMatrix();
 
+    //CandyCane
+    glPushMatrix(); {
+        glRotatef(-45.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(10.0f, 5.0f, 0.0f);
+        candyCane->draw(); 
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+        glRotatef(90.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(-9.0f, 5.0f, 0.0f);
+        candyCane->draw();
+    }
+    glPopMatrix();
+
+    glPushMatrix(); {
+        glRotatef(60.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(0.0f, 5.0f, -10.0f);
+        candyCane->draw();
+    }
+    glPopMatrix();
+
+    //Dog MODEL
+    glPushMatrix(); {
+        //glRotatef(90.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(7.0f, 5.0f, -10.0f);
+        dogModel->draw(); 
+    }
+    glPopMatrix();
+
+
+    glPushMatrix(); {
+        //glRotatef(90.0, 0.0f, 1.0f, 0.0f);
+        glTranslatef(-7.0f, 5.0f, 9.0f);
+        dogModel->draw();
+    }
+    glPopMatrix();
     //BLACK PIECES
    textureManager->useTexture("darkMarble");
     for (size_t i = 0; i < originalBlackRookOnePositions.size(); i++) {
